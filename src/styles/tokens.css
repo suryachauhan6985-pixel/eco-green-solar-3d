@@ -1,0 +1,61 @@
+:root {
+  /* Fresh, Clean Architectural Palette with Subtle Natural Green Tint (No stark solid white, no AI dark) */
+  --bg-main: #F7FAF8;
+  --bg-subtle: #F0F6F2;
+  --bg-surface: #E8F2EC;
+  --bg-card: #FFFFFF;
+  
+  /* Eco Green Solar Authentic Brand Green */
+  --brand-green: #008F4F;
+  --brand-green-dark: #006D3B;
+  --brand-green-light: #EBF7F0;
+  --brand-green-tint: #D6EFE1;
+  
+  /* Solar Warm Accent */
+  --sun-warm: #D97706;
+  --sun-light: #FEF3C7;
+  
+  /* Clean Typography Colors */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-white: #FFFFFF;
+  
+  /* Subtle Borders & Dividers (No glowing borders) */
+  --border-light: #E2E8F0;
+  --border-subtle: #EDF2F7;
+  --border-green: #A3D9BD;
+  
+  /* Soft, Natural Corporate Shadows (No neon glows) */
+  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.06);
+  --shadow-hover: 0 16px 36px rgba(0, 143, 79, 0.12);
+  
+  /* Typography */
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Fluid Clamp Typography */
+  --text-huge: clamp(2.8rem, 6.5vw, 6.2rem);
+  --text-title: clamp(2rem, 4vw, 3.8rem);
+  --text-subtitle: clamp(1.15rem, 2vw, 1.8rem);
+  --text-body: clamp(0.95rem, 1.05vw, 1.12rem);
+  --text-caption: 0.82rem;
+  
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+  
+  /* Easing */
+  --transition-fast: 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --text-huge: clamp(2.2rem, 9vw, 3.4rem);
+    --text-title: clamp(1.7rem, 6.5vw, 2.5rem);
+  }
+}
