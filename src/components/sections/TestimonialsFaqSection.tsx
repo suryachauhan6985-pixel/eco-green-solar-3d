@@ -140,7 +140,7 @@ export const TestimonialsFaqSection: React.FC = () => {
                     onClick={() => setOpenFaq(isOpen ? null : fIdx)}
                     style={{
                       width: '100%',
-                      padding: '1.6rem 2rem',
+                      padding: '1.5rem 1.8rem',
                       background: 'none',
                       border: 'none',
                       color: 'var(--text-primary)',
@@ -149,20 +149,28 @@ export const TestimonialsFaqSection: React.FC = () => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       cursor: 'pointer',
-                      fontSize: '1.1rem',
+                      fontSize: '1.08rem',
                       fontWeight: 600,
                       fontFamily: 'var(--font-display)',
+                      gap: '1rem',
                     }}
                     data-cursor="Toggle"
                   >
                     <span>{faq.question}</span>
                     <span
                       style={{
-                        fontSize: '1.4rem',
-                        color: isOpen ? 'var(--brand-green)' : 'var(--text-muted)',
-                        transform: isOpen ? 'rotate(45deg)' : 'none',
-                        transition: 'transform 0.25s ease, color 0.25s ease',
-                        marginLeft: '1rem',
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        backgroundColor: isOpen ? 'var(--brand-green)' : 'var(--bg-subtle)',
+                        color: isOpen ? '#FFFFFF' : 'var(--text-secondary)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.25rem',
+                        transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+                        transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                        flexShrink: 0,
                         lineHeight: 1,
                       }}
                     >
@@ -170,18 +178,29 @@ export const TestimonialsFaqSection: React.FC = () => {
                     </span>
                   </button>
 
-                  {isOpen && (
-                    <div
-                      style={{
-                        padding: '0 2rem 1.8rem 2rem',
-                        color: 'var(--text-secondary)',
-                        fontSize: '0.94rem',
-                        lineHeight: 1.7,
-                      }}
-                    >
-                      {faq.answer}
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateRows: isOpen ? '1fr' : '0fr',
+                      transition: 'grid-template-rows 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
+                      opacity: isOpen ? 1 : 0,
+                    }}
+                  >
+                    <div style={{ overflow: 'hidden' }}>
+                      <div
+                        style={{
+                          padding: '0 1.8rem 1.6rem 1.8rem',
+                          color: 'var(--text-secondary)',
+                          fontSize: '0.96rem',
+                          lineHeight: 1.7,
+                          borderTop: '1px solid var(--border-subtle)',
+                          paddingTop: '1rem',
+                        }}
+                      >
+                        {faq.answer}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}

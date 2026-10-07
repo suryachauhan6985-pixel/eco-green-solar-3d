@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextReveal } from '../common/TextReveal.tsx';
+import { ParallaxImage } from '../media/MediaComponents.tsx';
 import { content } from '../../content';
 
 export const ProductsSection: React.FC = () => {
@@ -160,28 +161,24 @@ export const ProductsSection: React.FC = () => {
               }}
               data-cursor="Product"
             >
-              {/* Product Visual Container */}
+              {/* Product Visual Container with Silky Scroll Parallax */}
               <div
                 style={{
                   position: 'relative',
-                  aspectRatio: '16/11',
                   overflow: 'hidden',
                   backgroundColor: '#F8FAF8',
                 }}
               >
-                <img
+                <ParallaxImage
                   src={product.image}
                   alt={product.name}
-                  loading="lazy"
+                  speed={12}
+                  aspectRatio="16/11"
+                  objectFit={product.image.endsWith('.png') ? 'contain' : 'cover'}
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: product.image.endsWith('.png') ? 'contain' : 'cover',
-                    padding: product.image.endsWith('.png') ? '1.5rem' : '0',
-                    transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                    padding: product.image.endsWith('.png') ? '1.2rem' : '0',
+                    borderRadius: 0,
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.08)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
                 />
                 <div
                   style={{
@@ -196,6 +193,8 @@ export const ProductsSection: React.FC = () => {
                     letterSpacing: '0.04em',
                     padding: '0.35rem 0.8rem',
                     borderRadius: '999px',
+                    zIndex: 2,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
                   }}
                 >
                   {product.badge}

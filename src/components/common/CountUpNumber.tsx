@@ -21,54 +21,82 @@ export const CountUpNumber: React.FC<CountUpNumberProps> = ({
 }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const elementRef = useRef<HTMLSpanElement>(null);
-  const hasAnimated = useRef(false);
+  const animationFrameRef = useRef<number | null>(null);
+  const isIntersectingRef = useRef(false);
 
   useEffect(() => {
-    let startTime: number | null = null;
-    let animationFrameId: number;
+    const el = elementRef.current;
+    if (!el) return;
 
-    const startAnimation = () => {
-      const startValue = displayValue;
-      const change = end - startValue;
+    const runTween = (fromVal: number, toVal: number, animDuration: number) => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReducedMotion) {
+        setDisplayValue(toVal);
+        return;
+      }
+
+      let startTime: number | null = null;
+      const change = toVal - fromVal;
 
       const step = (timestamp: number) => {
         if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / animDuration, 1);
         
-        // Cubic ease out
+        // Smooth cubic ease out
         const ease = 1 - Math.pow(1 - progress, 3);
-        const current = startValue + change * ease;
-        
+        const current = fromVal + change * ease;
         setDisplayValue(current);
 
         if (progress < 1) {
-          animationFrameId = requestAnimationFrame(step);
+          animationFrameRef.current = requestAnimationFrame(step);
         } else {
-          setDisplayValue(end);
+          setDisplayValue(toVal);
         }
       };
 
-      animationFrameId = requestAnimationFrame(step);
+      animationFrameRef.current = requestAnimationFrame(step);
     };
 
-    // If intersection observer available, trigger when visible
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          startAnimation();
-          hasAnimated.current = true;
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            isIntersectingRef.current = true;
+            // Every time the number enters the viewport, smoothly grow from 0 to target
+            runTween(0, end, duration);
+          } else {
+            isIntersectingRef.current = false;
+            if (animationFrameRef.current) {
+              cancelAnimationFrame(animationFrameRef.current);
+            }
+            // Reset to 0 when scrolled out so re-entry always grows
+            setDisplayValue(0);
+          }
+        });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    observer.observe(el);
+
+    // If already in viewport and end changed (e.g. calculator slider)
+    if (isIntersectingRef.current) {
+      runTween(0, end, Math.min(duration, 600));
     }
 
     return () => {
-      if (elementRef.current) observer.unobserve(elementRef.current);
-      cancelAnimationFrame(animationFrameId);
+      observer.unobserve(el);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
   }, [end, duration]);
 
@@ -87,3 +115,4 @@ export const CountUpNumber: React.FC<CountUpNumberProps> = ({
 };
 
 export default CountUpNumber;
+

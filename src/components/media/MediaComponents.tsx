@@ -10,19 +10,21 @@ gsap.registerPlugin(ScrollTrigger);
 interface ParallaxImageProps {
   src: string;
   alt: string;
-  speed?: number; // e.g. -20 to 20 percentage
+  speed?: number; // e.g. -25 to 25 percentage
   className?: string;
   style?: React.CSSProperties;
   aspectRatio?: string;
+  objectFit?: 'cover' | 'contain';
 }
 
 export const ParallaxImage: React.FC<ParallaxImageProps> = ({
   src,
   alt,
-  speed = 15,
+  speed = 16,
   className = '',
   style = {},
   aspectRatio = '16/9',
+  objectFit = 'cover',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -38,16 +40,16 @@ export const ParallaxImage: React.FC<ParallaxImageProps> = ({
 
     const anim = gsap.fromTo(
       img,
-      { yPercent: -speed / 2, scale: 1.08 },
+      { yPercent: -speed, scale: 1.12 },
       {
-        yPercent: speed / 2,
-        scale: 1.02,
+        yPercent: speed,
+        scale: 1.03,
         ease: 'none',
         scrollTrigger: {
           trigger: container,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1,
+          scrub: 1.2,
         },
       }
     );
@@ -75,11 +77,11 @@ export const ParallaxImage: React.FC<ParallaxImageProps> = ({
         loading="lazy"
         style={{
           position: 'absolute',
-          top: 0,
+          top: '-15%',
           left: 0,
           width: '100%',
-          height: '115%',
-          objectFit: 'cover',
+          height: '130%',
+          objectFit: objectFit,
           willChange: 'transform',
         }}
       />

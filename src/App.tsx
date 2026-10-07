@@ -79,7 +79,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="relative min-h-screen text-slate-900 overflow-x-hidden selection:bg-emerald-100 selection:text-emerald-900">
       {/* Custom Minimal Cursor */}
       <CustomCursor />
 

@@ -11,6 +11,7 @@ export const ContactFooterSection: React.FC = () => {
     solution: 'Rooftop Solar PV',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -428,16 +429,94 @@ export const ContactFooterSection: React.FC = () => {
               </a>
             </div>
 
-            {/* Interactive Map Frame with Smooth Hover Zoom Effect */}
+            {/* Interactive Map Frame with Instant Visual Backdrop & Seamless Eager Load */}
             <div
               style={{
                 position: 'relative',
                 height: '420px',
                 width: '100%',
                 overflow: 'hidden',
-                backgroundColor: '#E2E8F0',
+                backgroundColor: '#E8F1EC',
               }}
             >
+              {/* Instant High-Tech Map Canvas Background (Visible 0ms without waiting for iframe network) */}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#EDF5F0',
+                  backgroundImage: `
+                    radial-gradient(circle at 50% 50%, rgba(0, 143, 79, 0.08) 0%, transparent 60%),
+                    linear-gradient(rgba(0, 143, 79, 0.06) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 143, 79, 0.06) 1px, transparent 1px)
+                  `,
+                  backgroundSize: '100% 100%, 32px 32px, 32px 32px',
+                  zIndex: 1,
+                  opacity: mapLoaded ? 0 : 1,
+                  transition: 'opacity 0.6s ease',
+                  pointerEvents: mapLoaded ? 'none' : 'auto',
+                }}
+              >
+                {/* Center Pin & Radar Beacon */}
+                <div style={{ textAlign: 'center', position: 'relative' }}>
+                  {/* Pulsing Radar Ring */}
+                  <div
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '50%',
+                      backgroundColor: 'rgba(0, 143, 79, 0.15)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: '0 auto 0.8rem',
+                      boxShadow: '0 0 0 12px rgba(0, 143, 79, 0.08)',
+                      animation: 'pulse 2s infinite',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--brand-green)',
+                        boxShadow: '0 4px 12px rgba(0, 143, 79, 0.4)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#FFFFFF',
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                      }}
+                    >
+                      📍
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      padding: '0.7rem 1.4rem',
+                      borderRadius: '12px',
+                      boxShadow: '0 10px 25px rgba(15, 23, 42, 0.12)',
+                      border: '1px solid var(--border-light)',
+                      maxWidth: '320px',
+                    }}
+                  >
+                    <div style={{ fontWeight: 800, fontSize: '0.92rem', color: 'var(--brand-green-dark)' }}>
+                      Eco Green Solar Plant
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                      Plot No. G-1929, Almighty Gate, GIDC Metoda, Rajkot
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Real Google Map Iframe (Eagerly fetched, smoothly fades in when ready) */}
               <iframe
                 title="Eco Green Solar Factory - Rajkot Gujarat"
                 src="https://maps.google.com/maps?q=22.21273267178387,70.60438963429085&hl=en&z=16&output=embed"
@@ -447,17 +526,21 @@ export const ContactFooterSection: React.FC = () => {
                   border: 0,
                   width: '100%',
                   height: '100%',
-                  transition: 'transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)',
+                  position: 'relative',
+                  zIndex: 2,
+                  opacity: mapLoaded ? 1 : 0.85,
+                  transition: 'opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
                   transform: 'scale(1.0)',
                 }}
+                onLoad={() => setMapLoaded(true)}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.07)';
+                  e.currentTarget.style.transform = 'scale(1.05)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1.0)';
                 }}
                 allowFullScreen={false}
-                loading="lazy"
+                loading="eager"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>

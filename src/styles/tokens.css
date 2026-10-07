@@ -1,15 +1,15 @@
 :root {
-  /* Fresh, Clean Architectural Palette with Subtle Natural Green Tint (No stark solid white, no AI dark) */
-  --bg-main: #F7FAF8;
-  --bg-subtle: #F0F6F2;
-  --bg-surface: #E8F2EC;
+  /* Fresh, Clean Architectural Palette with Subtle Rich Natural Green Tint (Slightly deeper organic tone, no AI dark) */
+  --bg-main: #EDF4EF;
+  --bg-subtle: #E2ECE5;
+  --bg-surface: #D8E6DC;
   --bg-card: #FFFFFF;
   
   /* Eco Green Solar Authentic Brand Green */
   --brand-green: #008F4F;
   --brand-green-dark: #006D3B;
-  --brand-green-light: #EBF7F0;
-  --brand-green-tint: #D6EFE1;
+  --brand-green-light: #E0F2E7;
+  --brand-green-tint: #CDE6D6;
   
   /* Solar Warm Accent */
   --sun-warm: #D97706;
@@ -17,13 +17,13 @@
   
   /* Clean Typography Colors */
   --text-primary: #0F172A;
-  --text-secondary: #334155;
-  --text-muted: #64748B;
+  --text-secondary: #2C3E50;
+  --text-muted: #5F738A;
   --text-white: #FFFFFF;
   
-  /* Subtle Borders & Dividers (No glowing borders) */
-  --border-light: #E2E8F0;
-  --border-subtle: #EDF2F7;
+  /* Subtle Borders & Dividers */
+  --border-light: #D5E2D9;
+  --border-subtle: #E0ECE3;
   --border-green: #A3D9BD;
   
   /* Soft, Natural Corporate Shadows (No neon glows) */

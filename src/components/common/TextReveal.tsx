@@ -1,8 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface TextRevealProps {
   children: string;
@@ -18,107 +15,115 @@ export const TextReveal: React.FC<TextRevealProps> = ({
   tag = 'h2',
   className = '',
   delay = 0,
-  stagger = 0.04,
+  stagger = 0.035,
   triggerOnScroll = true,
 }) => {
   const containerRef = useRef<HTMLElement>(null);
+  const animatedRef = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    const words = el.querySelectorAll('.word-inner');
+    const words = el.querySelectorAll<HTMLElement>('.word-inner');
     if (!words.length) return;
 
-    // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
     if (prefersReducedMotion) {
-      gsap.set(words, { y: 0, opacity: 1 });
+      gsap.set(words, { y: '0%', opacity: 1 });
       return;
     }
 
-    gsap.set(words, { y: '115%', opacity: 0 });
+    // Initial state: hidden slightly below baseline
+    gsap.set(words, { y: '100%', opacity: 0 });
 
-    if (triggerOnScroll) {
-      const trigger = ScrollTrigger.create({
-        trigger: el,
-        start: 'top 88%',
-        end: 'bottom 10%',
-        onEnter: () => {
-          gsap.to(words, {
-            y: '0%',
-            opacity: 1,
-            duration: 0.95,
-            ease: 'power3.out',
-            stagger,
-            delay,
-            overwrite: 'auto',
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(words, {
-            y: '0%',
-            opacity: 1,
-            duration: 0.85,
-            ease: 'power3.out',
-            stagger,
-            overwrite: 'auto',
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(words, {
-            y: '115%',
-            opacity: 0,
-            duration: 0.5,
-            ease: 'power2.in',
-            overwrite: 'auto',
-          });
-        },
-      });
+    const animateIn = () => {
+      if (animatedRef.current) return;
+      animatedRef.current = true;
 
-      return () => {
-        trigger.kill();
-      };
-    } else {
       gsap.to(words, {
         y: '0%',
         opacity: 1,
-        duration: 1.1,
+        duration: 0.75,
         ease: 'power3.out',
         stagger,
         delay,
+        overwrite: 'auto',
+        onComplete: () => {
+          gsap.set(words, { clearProps: 'transform,willChange' });
+        },
       });
+    };
+
+    if (!triggerOnScroll) {
+      animateIn();
+      return;
     }
+
+    // Native IntersectionObserver: 100% reliable across all devices and layout shifts
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateIn();
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px',
+      }
+    );
+
+    observer.observe(el);
+
+    // Safety fallback: ensure text is NEVER stuck if already in view or after scroll
+    const fallbackTimer = setTimeout(() => {
+      if (!animatedRef.current && el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          animateIn();
+        }
+      }
+    }, 500);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, [children, delay, stagger, triggerOnScroll]);
 
-  const words = children.split(' ');
-
+  const words = children ? children.trim().split(/\s+/) : [];
   const Tag = tag as any;
 
   return (
     <Tag
       ref={containerRef as any}
-      className={`inline-block ${className}`}
-      style={{ overflow: 'hidden' }}
+      className={className}
+      style={{ display: 'block' }}
     >
       {words.map((word, i) => (
         <span
           key={i}
-          className="word-mask inline-block"
+          className="word-mask"
           style={{
+            display: 'inline-block',
             overflow: 'hidden',
-            verticalAlign: 'top',
+            verticalAlign: 'baseline',
+            paddingBottom: '0.14em',
+            marginBottom: '-0.14em',
             marginRight: '0.28em',
           }}
         >
           <span
-            className="word-inner inline-block"
+            className="word-inner"
             style={{
               display: 'inline-block',
-              transform: 'translateY(115%)',
+              transform: 'translateY(100%)',
               opacity: 0,
               willChange: 'transform, opacity',
             }}
