@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { content } from '../../content';
 
 export const BookCatalog: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [isFlipping, setIsFlipping] = useState<'next' | 'prev' | null>(null);
-  const [displayPage, setDisplayPage] = useState(0);
+  const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
 
   // Authentic catalog pages designed from ecogreensolar.co.in
   const pages = [
@@ -161,24 +160,16 @@ export const BookCatalog: React.FC = () => {
   const totalPages = pages.length;
 
   const nextPage = () => {
-    if (currentPage < totalPages - 1 && !isFlipping) {
-      setIsFlipping('next');
-      setTimeout(() => {
-        setCurrentPage((prev) => prev + 1);
-        setDisplayPage((prev) => prev + 1);
-        setIsFlipping(null);
-      }, 550);
+    if (currentPage < totalPages - 1) {
+      setDirection('forward');
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
   const prevPage = () => {
-    if (currentPage > 0 && !isFlipping) {
-      setIsFlipping('prev');
-      setTimeout(() => {
-        setCurrentPage((prev) => prev - 1);
-        setDisplayPage((prev) => prev - 1);
-        setIsFlipping(null);
-      }, 550);
+    if (currentPage > 0) {
+      setDirection('backward');
+      setCurrentPage((prev) => prev - 1);
     }
   };
 
@@ -190,211 +181,130 @@ export const BookCatalog: React.FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentPage, isFlipping]);
+  }, [currentPage]);
 
-  const activePage = pages[displayPage];
+  const activePage = pages[currentPage];
 
   return (
     <section id="catalog" className="site-section site-section-subtle">
       <style>{`
-        /* 3D Realistic Book Perspective */
-        .book-stage-perspective {
-          perspective: 2000px;
-          perspective-origin: center center;
-          position: relative;
-          width: 100%;
-        }
-
+        /* Book Canvas Sheet */
         .book-canvas-sheet {
           background-color: #FFFFFF;
           border-radius: 24px;
-          box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+          box-shadow: 0 16px 45px rgba(15, 23, 42, 0.07);
           border: 1px solid #E2E8F0;
           overflow: hidden;
           position: relative;
-          transform-style: preserve-3d;
-          transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Spine realistic center shadow gradient */
+        /* Center Spine Subtle Line */
         .book-spine-line {
           position: absolute;
           top: 0;
           bottom: 0;
           left: 50%;
-          width: 30px;
+          width: 24px;
           transform: translateX(-50%);
           background: linear-gradient(
             to right,
             rgba(0,0,0,0) 0%,
             rgba(0,0,0,0.02) 20%,
-            rgba(0,0,0,0.06) 45%,
-            rgba(0,0,0,0.12) 50%,
-            rgba(0,0,0,0.06) 55%,
+            rgba(0,0,0,0.05) 50%,
             rgba(0,0,0,0.02) 80%,
             rgba(0,0,0,0) 100%
           );
           pointer-events: none;
-          z-index: 10;
+          z-index: 5;
         }
 
-        /* Actual 3D Curved Flip Animations */
-        @keyframes pageFlipNext {
+        /* Editorial Image Transitions (Directional Slide + Depth Scale + Soft Fade) */
+        @keyframes imageSlideForward {
           0% {
-            transform: rotateY(0deg) translateZ(0);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            filter: brightness(1);
-          }
-          40% {
-            transform: rotateY(-35deg) skewY(-2deg) scale(0.985);
-            box-shadow: 25px 20px 45px rgba(0,0,0,0.15);
-            filter: brightness(0.96);
-          }
-          70% {
-            transform: rotateY(-10deg) skewY(-1deg) scale(0.995);
-            filter: brightness(0.99);
+            opacity: 0;
+            transform: translateX(45px) scale(0.94);
+            filter: blur(4px) drop-shadow(0 10px 18px rgba(0,0,0,0.06));
           }
           100% {
-            transform: rotateY(0deg) skewY(0deg) scale(1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            filter: brightness(1);
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            filter: blur(0) drop-shadow(0 18px 32px rgba(0,0,0,0.12));
           }
         }
 
-        @keyframes pageFlipPrev {
+        @keyframes imageSlideBackward {
           0% {
-            transform: rotateY(0deg) translateZ(0);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            filter: brightness(1);
-          }
-          40% {
-            transform: rotateY(35deg) skewY(2deg) scale(0.985);
-            box-shadow: -25px 20px 45px rgba(0,0,0,0.15);
-            filter: brightness(0.96);
-          }
-          70% {
-            transform: rotateY(10deg) skewY(1deg) scale(0.995);
-            filter: brightness(0.99);
+            opacity: 0;
+            transform: translateX(-45px) scale(0.94);
+            filter: blur(4px) drop-shadow(0 10px 18px rgba(0,0,0,0.06));
           }
           100% {
-            transform: rotateY(0deg) skewY(0deg) scale(1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            filter: brightness(1);
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            filter: blur(0) drop-shadow(0 18px 32px rgba(0,0,0,0.12));
           }
         }
 
-        /* Realistic Curl Sweep across page and image */
-        .page-flipping-next {
-          animation: pageFlipNext 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-          transform-origin: left center;
+        .anim-image-forward {
+          animation: imageSlideForward 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
-        .page-flipping-prev {
-          animation: pageFlipPrev 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-          transform-origin: right center;
+        .anim-image-backward {
+          animation: imageSlideBackward 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
-        /* Dynamic Image Curl Response */
-        @keyframes imageCurlNext {
+        /* Staggered Text Revelations */
+        @keyframes textSlideUp {
           0% {
-            transform: perspective(800px) rotateY(0deg) rotateZ(0deg) scale(1);
-          }
-          40% {
-            transform: perspective(800px) rotateY(-28deg) rotateZ(-2deg) scale(0.97);
-            filter: drop-shadow(15px 15px 20px rgba(0,0,0,0.18));
+            opacity: 0;
+            transform: translateY(20px);
           }
           100% {
-            transform: perspective(800px) rotateY(0deg) rotateZ(0deg) scale(1);
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.06));
+            opacity: 1;
+            transform: translateY(0);
           }
         }
 
-        @keyframes imageCurlPrev {
-          0% {
-            transform: perspective(800px) rotateY(0deg) rotateZ(0deg) scale(1);
-          }
-          40% {
-            transform: perspective(800px) rotateY(28deg) rotateZ(2deg) scale(0.97);
-            filter: drop-shadow(-15px 15px 20px rgba(0,0,0,0.18));
-          }
-          100% {
-            transform: perspective(800px) rotateY(0deg) rotateZ(0deg) scale(1);
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.06));
-          }
+        .anim-text-badge {
+          animation: textSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.04s both;
         }
 
-        .image-flipping-next {
-          animation: imageCurlNext 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        .anim-text-title {
+          animation: textSlideUp 0.44s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
         }
 
-        .image-flipping-prev {
-          animation: imageCurlPrev 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        .anim-text-desc {
+          animation: textSlideUp 0.48s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
         }
 
-        /* Hover page dog-ear hint */
-        .page-turn-hint-right {
-          position: absolute;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 48px;
-          cursor: pointer;
-          z-index: 8;
-          transition: background 0.2s ease;
+        .anim-text-list {
+          animation: textSlideUp 0.52s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
         }
-        .page-turn-hint-right:hover {
-          background: linear-gradient(to left, rgba(0, 143, 79, 0.05), transparent);
-        }
-        .page-turn-hint-left {
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 48px;
-          cursor: pointer;
-          z-index: 8;
-          transition: background 0.2s ease;
-        }
-        .page-turn-hint-left:hover {
-          background: linear-gradient(to right, rgba(0, 143, 79, 0.05), transparent);
+
+        .anim-text-meta {
+          animation: textSlideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
         }
       `}</style>
 
       <div style={{ maxWidth: '1360px', margin: '0 auto', width: '100%' }}>
         {/* Header */}
-        <div style={{ marginBottom: '3rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto 3rem' }}>
+        <div style={{ marginBottom: '2.8rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto 2.8rem' }}>
           <span className="badge-green" style={{ marginBottom: '1rem' }}>
             OFFICIAL PRODUCT BROCHURE
           </span>
-          <h2 style={{ fontSize: 'var(--text-title)', lineHeight: 1.1, color: 'var(--text-primary)', marginBottom: '0.8rem' }}>
+          <h2 style={{ fontSize: 'var(--text-title)', lineHeight: 1.15, color: 'var(--text-primary)', marginBottom: '0.7rem', fontWeight: 800 }}>
             Interactive Product Catalog
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>
-            Browse through our authentic Rajkot factory catalog with a smooth interactive page-turn experience.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem' }}>
+            Browse through our authentic Rajkot factory catalog with smooth interactive page navigation.
           </p>
         </div>
 
-        {/* 3D Realistic Book Container */}
-        <div className="book-stage-perspective" style={{ maxWidth: '1020px', margin: '0 auto' }}>
-          <div
-            className={`book-canvas-sheet ${
-              isFlipping === 'next' ? 'page-flipping-next' : isFlipping === 'prev' ? 'page-flipping-prev' : ''
-            }`}
-          >
+        {/* Clean Book Container */}
+        <div style={{ maxWidth: '1060px', margin: '0 auto' }}>
+          <div className="book-canvas-sheet">
             {/* Center Spine Shadow for book depth */}
             <div className="book-spine-line" />
-
-            {/* Clickable page-turn edge hot zones */}
-            <div
-              className="page-turn-hint-left"
-              title="Previous Page (Arrow Left)"
-              onClick={prevPage}
-            />
-            <div
-              className="page-turn-hint-right"
-              title="Next Page (Arrow Right)"
-              onClick={nextPage}
-            />
 
             {/* Top Catalog Toolbar */}
             <div
@@ -408,7 +318,7 @@ export const BookCatalog: React.FC = () => {
                 flexWrap: 'wrap',
                 gap: '1rem',
                 position: 'relative',
-                zIndex: 12,
+                zIndex: 10,
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -422,7 +332,7 @@ export const BookCatalog: React.FC = () => {
                 </span>
               </div>
 
-              {/* Page Turn Controls */}
+              {/* Page Navigation & Progress */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
                 <span style={{ fontSize: '0.86rem', color: 'var(--text-muted)', fontWeight: 600 }}>
                   Page {currentPage + 1} of {totalPages}
@@ -430,7 +340,7 @@ export const BookCatalog: React.FC = () => {
                 <div style={{ display: 'flex', gap: '0.6rem' }}>
                   <button
                     onClick={prevPage}
-                    disabled={currentPage === 0 || isFlipping !== null}
+                    disabled={currentPage === 0}
                     className="btn-secondary"
                     style={{
                       padding: '0.55rem 1.1rem',
@@ -448,7 +358,7 @@ export const BookCatalog: React.FC = () => {
                   </button>
                   <button
                     onClick={nextPage}
-                    disabled={currentPage === totalPages - 1 || isFlipping !== null}
+                    disabled={currentPage === totalPages - 1}
                     className="btn-primary"
                     style={{
                       padding: '0.55rem 1.3rem',
@@ -468,11 +378,12 @@ export const BookCatalog: React.FC = () => {
               </div>
             </div>
 
-            {/* Book Page Content Body */}
+            {/* Book Page Content Body with key for fresh transitions */}
             <div
+              key={currentPage}
               style={{
-                padding: 'clamp(2rem, 4vw, 3.8rem)',
-                minHeight: '480px',
+                padding: 'clamp(2rem, 3.8vw, 3.5rem)',
+                minHeight: '490px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -489,17 +400,19 @@ export const BookCatalog: React.FC = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <div style={{ gridColumn: 'span 7' }} className="col-span-12 md:col-span-7">
-                    <span className="badge-green" style={{ marginBottom: '1rem' }}>
+                  {/* Left: Cover Text */}
+                  <div style={{ gridColumn: 'span 6' }} className="col-span-12 md:col-span-6">
+                    <span className="badge-green anim-text-badge" style={{ marginBottom: '1rem', display: 'inline-block' }}>
                       {activePage.content.badge}
                     </span>
-                    <h3 style={{ fontSize: 'clamp(1.5rem, 2.2vw, 1.95rem)', color: 'var(--text-primary)', marginBottom: '0.8rem', lineHeight: 1.2, fontWeight: 800 }}>
+                    <h3 className="anim-text-title" style={{ fontSize: 'clamp(1.5rem, 2.2vw, 1.95rem)', color: 'var(--text-primary)', marginBottom: '0.8rem', lineHeight: 1.2, fontWeight: 800 }}>
                       {activePage.content.heading}
                     </h3>
-                    <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1.6rem', lineHeight: 1.6 }}>
+                    <p className="anim-text-desc" style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1.6rem', lineHeight: 1.6 }}>
                       {activePage.content.sub}
                     </p>
                     <div
+                      className="anim-text-meta"
                       style={{
                         padding: '1rem 1.4rem',
                         backgroundColor: '#F0FDF4',
@@ -518,30 +431,26 @@ export const BookCatalog: React.FC = () => {
                     </div>
                   </div>
 
-                  <div style={{ gridColumn: 'span 5' }} className="col-span-12 md:col-span-5">
-                    <div
-                      style={{
-                        backgroundColor: '#F8FAF8',
-                        borderRadius: '20px',
-                        padding: '2rem',
-                        textAlign: 'center',
-                        border: '1px solid #E2E8F0',
-                        boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.02)',
-                      }}
-                    >
+                  {/* Right: Large Product Image (NO GREY BOX) */}
+                  <div style={{ gridColumn: 'span 6' }} className="col-span-12 md:col-span-6">
+                    <div style={{ textAlign: 'center' }}>
                       <img
                         src={activePage.content.image}
                         alt={activePage.title}
-                        className={
-                          isFlipping === 'next'
-                            ? 'image-flipping-next'
-                            : isFlipping === 'prev'
-                            ? 'image-flipping-prev'
-                            : ''
-                        }
-                        style={{ maxHeight: '240px', maxWidth: '100%', objectFit: 'contain', margin: '0 auto', transition: 'transform 0.3s ease' }}
+                        className={direction === 'forward' ? 'anim-image-forward' : 'anim-image-backward'}
+                        style={{
+                          maxHeight: '360px',
+                          width: 'auto',
+                          maxWidth: '100%',
+                          objectFit: 'contain',
+                          margin: '0 auto',
+                          display: 'block',
+                        }}
                       />
-                      <div style={{ marginTop: '1.5rem', fontWeight: 700, color: 'var(--brand-green)' }}>
+                      <div
+                        className="anim-text-meta"
+                        style={{ marginTop: '1.2rem', fontWeight: 700, fontSize: '1rem', color: 'var(--brand-green)' }}
+                      >
                         Pressurized ETC Solar Water Heater
                       </div>
                     </div>
@@ -555,41 +464,27 @@ export const BookCatalog: React.FC = () => {
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(12, 1fr)',
-                    gap: '3rem',
+                    gap: '2.5rem',
                     alignItems: 'center',
                   }}
                 >
-                  {/* Left: Product Image in Book Frame */}
+                  {/* Left: Product Image (NO GREY BOX - Clean, Large & Natural) */}
                   <div style={{ gridColumn: 'span 5' }} className="col-span-12 md:col-span-5">
-                    <div
-                      style={{
-                        backgroundColor: '#F8FAF8',
-                        borderRadius: '20px',
-                        padding: '2.5rem 1.5rem',
-                        textAlign: 'center',
-                        border: '1px solid #E2E8F0',
-                        boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.02)',
-                      }}
-                    >
+                    <div style={{ textAlign: 'center' }}>
                       <img
                         src={activePage.content.image}
                         alt={activePage.title}
-                        className={
-                          isFlipping === 'next'
-                            ? 'image-flipping-next'
-                            : isFlipping === 'prev'
-                            ? 'image-flipping-prev'
-                            : ''
-                        }
+                        className={direction === 'forward' ? 'anim-image-forward' : 'anim-image-backward'}
                         style={{
-                          maxHeight: '260px',
+                          maxHeight: '360px',
+                          width: 'auto',
                           maxWidth: '100%',
                           objectFit: 'contain',
                           margin: '0 auto',
-                          transition: 'transform 0.3s ease',
+                          display: 'block',
                         }}
                       />
-                      <div style={{ marginTop: '1.2rem' }}>
+                      <div className="anim-text-meta" style={{ marginTop: '1rem' }}>
                         <span className="badge-green">{activePage.content.badge}</span>
                       </div>
                     </div>
@@ -597,14 +492,14 @@ export const BookCatalog: React.FC = () => {
 
                   {/* Right: Technical Features & Applications */}
                   <div style={{ gridColumn: 'span 7' }} className="col-span-12 md:col-span-7">
-                    <span style={{ fontSize: '0.8rem', color: 'var(--brand-green)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <span className="anim-text-badge" style={{ fontSize: '0.8rem', color: 'var(--brand-green)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block' }}>
                       {activePage.subtitle}
                     </span>
-                    <h3 style={{ fontSize: 'clamp(1.35rem, 2vw, 1.75rem)', color: 'var(--text-primary)', marginTop: '0.2rem', marginBottom: '1rem', fontWeight: 800 }}>
+                    <h3 className="anim-text-title" style={{ fontSize: 'clamp(1.35rem, 2vw, 1.75rem)', color: 'var(--text-primary)', marginTop: '0.2rem', marginBottom: '1rem', fontWeight: 800 }}>
                       {activePage.title}
                     </h3>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '1.8rem' }}>
+                    <div className="anim-text-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '1.6rem' }}>
                       {activePage.content.features?.map((feat, fIdx) => (
                         <div key={fIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', fontSize: '0.92rem', color: 'var(--text-secondary)' }}>
                           <span style={{ color: 'var(--brand-green)', fontWeight: 800, marginTop: '2px' }}>✓</span>
@@ -614,6 +509,7 @@ export const BookCatalog: React.FC = () => {
                     </div>
 
                     <div
+                      className="anim-text-meta"
                       style={{
                         display: 'flex',
                         flexWrap: 'wrap',
@@ -641,18 +537,19 @@ export const BookCatalog: React.FC = () => {
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(12, 1fr)',
-                    gap: '3rem',
+                    gap: '2.5rem',
                     alignItems: 'center',
                   }}
                 >
+                  {/* Left: Info */}
                   <div style={{ gridColumn: 'span 7' }} className="col-span-12 md:col-span-7">
-                    <span className="badge-amber" style={{ marginBottom: '1rem' }}>
+                    <span className="badge-amber anim-text-badge" style={{ marginBottom: '1rem', display: 'inline-block' }}>
                       FACTORY BACKED QUALITY
                     </span>
-                    <h3 style={{ fontSize: '2.2rem', color: 'var(--text-primary)', marginBottom: '1rem' }}>
+                    <h3 className="anim-text-title" style={{ fontSize: '1.7rem', color: 'var(--text-primary)', marginBottom: '1rem', fontWeight: 800 }}>
                       Rajkot Manufacturing Facility
                     </h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', marginBottom: '2rem' }}>
+                    <div className="anim-text-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', marginBottom: '1.8rem' }}>
                       {activePage.content.features?.map((feat, fIdx) => (
                         <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', fontSize: '0.92rem', color: 'var(--text-secondary)' }}>
                           <span style={{ color: 'var(--brand-green)', fontWeight: 800 }}>★</span>
@@ -660,25 +557,20 @@ export const BookCatalog: React.FC = () => {
                         </div>
                       ))}
                     </div>
-                    <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                    <div className="anim-text-meta" style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                       <strong>Direct Hotline: </strong> {activePage.content.hotline}<br />
                       <strong>Email: </strong> {activePage.content.email}<br />
                       <strong>Website: </strong> {activePage.content.web}
                     </div>
                   </div>
 
+                  {/* Right: Factory Image (NO GREY BOX) */}
                   <div style={{ gridColumn: 'span 5' }} className="col-span-12 md:col-span-5">
                     <img
                       src={activePage.content.image}
                       alt="Factory"
-                      className={
-                        isFlipping === 'next'
-                          ? 'image-flipping-next'
-                          : isFlipping === 'prev'
-                          ? 'image-flipping-prev'
-                          : ''
-                      }
-                      style={{ width: '100%', borderRadius: '18px', objectFit: 'cover', maxHeight: '260px' }}
+                      className={direction === 'forward' ? 'anim-image-forward' : 'anim-image-backward'}
+                      style={{ width: '100%', borderRadius: '18px', objectFit: 'cover', maxHeight: '320px', display: 'block' }}
                     />
                   </div>
                 </div>
