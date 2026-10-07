@@ -331,7 +331,211 @@ export const content = {
       { name: "LinkedIn", url: "https://www.linkedin.com/" },
       { name: "YouTube", url: "https://www.youtube.com/" }
     ]
-  }
+  },
+
+  catalogueProducts: [
+    {
+      id: "pressurized-etc",
+      name: "Pressurized ETC Series",
+      category: "Solar Water Heaters",
+      categoryId: "heaters",
+      accentColor: "#008F4F",
+      bgGradient: "linear-gradient(135deg, #093721 0%, #031D11 100%)",
+      badge: "5 Bar Pressure",
+      tag: "Best Seller",
+      image: "/media/images/pressurized-solar-water-heater.png",
+      indexNumber: "01",
+      oneLiner: "Engineered for high-pressure modern luxury bathrooms & rain showers.",
+      fullDescription: "Built with heavy-duty argon-welded food-grade SS-304L/SS-316L inner vessels, 50mm injected high-density PUF insulation, and borosilicate 3.3 triple-target vacuum tubes. Withstands up to 5 Bar continuous booster pump pressure with 72-hour thermal heat retention.",
+      chips: ["5 Bar Pressure", "Food-Grade SS-304L", "5 Years Guarantee"],
+      specs: [
+        { value: "5.0 Bar", label: "Max Pressure", icon: "gauge" },
+        { value: "SS-304L", label: "Inner Metallurgy", icon: "shield" },
+        { value: "72 Hrs", label: "Heat Retention", icon: "flame" },
+        { value: "5 Years", label: "Factory Warranty", icon: "award" }
+      ],
+      capacities: ["100 LPD", "150 LPD", "200 LPD", "250 LPD", "300 LPD", "500 LPD"],
+      capacityFamilyMap: { "100 LPD": 2, "150 LPD": 3, "200 LPD": 4, "250 LPD": 6, "300 LPD": 8, "500 LPD": 10 },
+      pdfUrl: "/downloads/EcoGreen-Pressurized-ETC.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about the Pressurized ETC Solar Water Heater"
+    },
+    {
+      id: "copper-coil",
+      name: "Copper Coil & Glass-Line",
+      category: "Solar Water Heaters",
+      categoryId: "heaters",
+      accentColor: "#D97706",
+      bgGradient: "linear-gradient(135deg, #372309 0%, #1D1303 100%)",
+      badge: "Hard Water Specialist",
+      tag: "Zero Scaling",
+      image: "/media/images/copper-solar-heater.png",
+      indexNumber: "02",
+      oneLiner: "Instant heat-exchanger copper coil engineered for high-TDS hard groundwater.",
+      fullDescription: "Features an internal electrolytic pure copper heat-exchanger coil coupled with vitreous glass enamel lining. Tested to withstand up to 2,500+ PPM TDS borewell water across Saurashtra & Kutch without mineral scaling or corrosive pinhole failures.",
+      chips: ["99.9% Copper Coil", "Glass-Lined Enamel", "7 Years Tank Warranty"],
+      specs: [
+        { value: "2500+ PPM", label: "TDS Tolerance", icon: "droplet" },
+        { value: "Pure Copper", label: "Heat Exchanger", icon: "zap" },
+        { value: "6.0 Bar", label: "Coil Pressure", icon: "gauge" },
+        { value: "7 Years", label: "Inner Tank Guarantee", icon: "award" }
+      ],
+      capacities: ["150 LPD", "200 LPD", "300 LPD", "500 LPD"],
+      capacityFamilyMap: { "150 LPD": 3, "200 LPD": 4, "300 LPD": 7, "500 LPD": 10 },
+      pdfUrl: "/downloads/EcoGreen-CopperCoil-Catalogue.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about the Copper Coil & Glass-Line Series"
+    },
+    {
+      id: "diamond-etc",
+      name: "Diamond ETC Series",
+      category: "Solar Water Heaters",
+      categoryId: "heaters",
+      accentColor: "#0284C7",
+      bgGradient: "linear-gradient(135deg, #082F49 0%, #031726 100%)",
+      badge: "Household Choice",
+      tag: "Most Popular",
+      image: "/media/images/diamond-solar.png",
+      indexNumber: "03",
+      oneLiner: "Heavy-duty natural thermosiphon circulation trusted by 20,000+ Gujarati homes.",
+      fullDescription: "Our flagship domestic workhorse. Built with 2.0mm hot-dip galvanized mounting structures that withstand 140 km/h coastal winds. Delivers reliable 65°C to 85°C hot water with zero electricity cost throughout the year.",
+      chips: ["Thermosiphon Flow", "2.0mm HDG Frame", "5 Years Comprehensive"],
+      specs: [
+        { value: "0.5 Bar", label: "Gravity Feed", icon: "gauge" },
+        { value: "SS-304", label: "Inner Tank", icon: "shield" },
+        { value: "140 km/h", label: "Wind Stability", icon: "wind" },
+        { value: "5 Years", label: "Full Warranty", icon: "award" }
+      ],
+      capacities: ["100 LPD", "150 LPD", "200 LPD", "250 LPD", "300 LPD"],
+      capacityFamilyMap: { "100 LPD": 2, "150 LPD": 3, "200 LPD": 5, "250 LPD": 6, "300 LPD": 8 },
+      pdfUrl: "/downloads/EcoGreen-Diamond-ETC.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about the Diamond ETC Series"
+    },
+    {
+      id: "glassline-ceramic",
+      name: "Glass-Line Ceramic Series",
+      category: "Solar Water Heaters",
+      categoryId: "heaters",
+      accentColor: "#059669",
+      bgGradient: "linear-gradient(135deg, #064E3B 0%, #022C22 100%)",
+      badge: "Anti-Corrosion Armor",
+      tag: "850°C Fused",
+      image: "/media/images/glassline-solar.png",
+      indexNumber: "04",
+      oneLiner: "Vitreous ceramic enamel coating immune to aggressive chlorides and fluorides.",
+      fullDescription: "Fired at 850°C to create an impermeable glass-fused barrier on 2.5mm carbon steel, backed by an active sacrificial magnesium anode rod. Completely eliminates corrosion in coastal, saline, and hard borewell water regions.",
+      chips: ["850°C Ceramic", "Magnesium Anode", "7 Years Replacement"],
+      specs: [
+        { value: "10.0 Bar", label: "Hydrostatic Test", icon: "gauge" },
+        { value: "Fused Ceramic", label: "Internal Shield", icon: "shield" },
+        { value: "High Saline", label: "Coastal Rating", icon: "droplet" },
+        { value: "7 Years", label: "Tank Replacement", icon: "award" }
+      ],
+      capacities: ["150 LPD", "200 LPD", "300 LPD", "500 LPD"],
+      capacityFamilyMap: { "150 LPD": 3, "200 LPD": 5, "300 LPD": 7, "500 LPD": 10 },
+      pdfUrl: "/downloads/EcoGreen-GlassLine-Catalogue.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about the Glass-Line Ceramic Series"
+    },
+    {
+      id: "pearl-domestic",
+      name: "Pearl Domestic Series",
+      category: "Solar Water Heaters",
+      categoryId: "heaters",
+      accentColor: "#10B981",
+      bgGradient: "linear-gradient(135deg, #064E3B 0%, #032A1F 100%)",
+      badge: "Best Value Home",
+      tag: "Fast ROI",
+      image: "/media/images/pearl-solar.png",
+      indexNumber: "05",
+      oneLiner: "Compact, high-yield natural solar heating designed for domestic urban terraces.",
+      fullDescription: "Engineered with double-passivated stainless steel seams and precision evacuated vacuum tubes. Achieves hot water temperatures up to 85°C before 11:00 AM, recovering its entire installation cost within 2 Saurashtra winter seasons.",
+      chips: ["Up to 85°C Temp", "Compact Footprint", "5 Years Warranty"],
+      specs: [
+        { value: "< 2 Yrs", label: "Payback Period", icon: "trending-up" },
+        { value: "85°C Peak", label: "Thermal Yield", icon: "flame" },
+        { value: "SS-304", label: "Inner Vessel", icon: "shield" },
+        { value: "5 Years", label: "Factory Warranty", icon: "award" }
+      ],
+      capacities: ["100 LPD", "150 LPD", "200 LPD"],
+      capacityFamilyMap: { "100 LPD": 2, "150 LPD": 3, "200 LPD": 5 },
+      pdfUrl: "/downloads/EcoGreen-Pearl-Catalogue.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about the Pearl Domestic Series"
+    },
+    {
+      id: "commercial-heatpump",
+      name: "Commercial Air-Source Heat Pump",
+      category: "Heat Pumps & Thermal",
+      categoryId: "heatpumps",
+      accentColor: "#6366F1",
+      bgGradient: "linear-gradient(135deg, #1E1B4B 0%, #0F0E2A 100%)",
+      badge: "75% Power Saving",
+      tag: "Thermodynamic",
+      image: "/media/images/heat-pump-hero.jpg",
+      indexNumber: "06",
+      oneLiner: "Extracts latent atmospheric heat for centralized 24/7 hot water in hotels & hospitals.",
+      fullDescription: "Delivers high coefficient of performance (COP > 4.2), producing 4.2 kW of thermal energy per 1 kW of electrical power. Features quiet Japanese rotary/scroll compressors, intelligent microcomputer controllers, and modular cascade capacity up to 15,000 LPD.",
+      chips: ["COP > 4.2 Ratio", "24/7 All-Weather", "Japanese Compressor"],
+      specs: [
+        { value: "COP > 4.2", label: "Energy Multiplier", icon: "zap" },
+        { value: "75% Cut", label: "Power Reduction", icon: "trending-up" },
+        { value: "8.0 Bar", label: "Loop Rating", icon: "gauge" },
+        { value: "3+5 Yrs", label: "Compressor + Tank", icon: "award" }
+      ],
+      capacities: ["200 LPD", "500 LPD", "1000 LPD", "3000 LPD+"],
+      capacityFamilyMap: { "200 LPD": 4, "500 LPD": 10, "1000 LPD": 25, "3000 LPD+": 75 },
+      pdfUrl: "/downloads/EcoGreen-Commercial-HeatPump.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about the Commercial Air-Source Heat Pump"
+    },
+    {
+      id: "pressure-booster",
+      name: "Hydro-Pneumatic Pressure Booster",
+      category: "Pressure Boosters",
+      categoryId: "pumps",
+      accentColor: "#0EA5E9",
+      bgGradient: "linear-gradient(135deg, #082F49 0%, #021827 100%)",
+      badge: "Rain Shower Booster",
+      tag: "Automatic Flow",
+      image: "/media/images/pressure-pump.png",
+      indexNumber: "07",
+      oneLiner: "Automatic electronic pressure sensing for steady, pulsation-free luxury showers.",
+      fullDescription: "Equipped with heavy stainless steel motor bodies, forged brass impellers, butyl diaphragm pressure tanks, and intelligent dry-run protection. Senses faucet operation and engages instantaneously to deliver high pressure to luxury body jets and rain showers.",
+      chips: ["Automatic Sensing", "Silent < 52 dB", "Dry-Run Protection"],
+      specs: [
+        { value: "2.5–5.5 Bar", label: "Operating Flow", icon: "gauge" },
+        { value: "< 52 dB", label: "Noise Emission", icon: "volume-x" },
+        { value: "Brass/SS", label: "Internal Impeller", icon: "shield" },
+        { value: "2 Years", label: "Factory Guarantee", icon: "award" }
+      ],
+      capacities: ["0.5 HP", "0.8 HP", "1.0 HP", "1.5 HP", "2.0 HP"],
+      capacityFamilyMap: { "0.5 HP": 2, "0.8 HP": 3, "1.0 HP": 5, "1.5 HP": 7, "2.0 HP": 10 },
+      pdfUrl: "/downloads/EcoGreen-PressureBooster-Guide.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about the Hydro-Pneumatic Pressure Booster Pump"
+    },
+    {
+      id: "rooftop-solar",
+      name: "Monocrystalline Rooftop Solar PV",
+      category: "Rooftop Solar PV",
+      categoryId: "solar",
+      accentColor: "#EAB308",
+      bgGradient: "linear-gradient(135deg, #422006 0%, #1A0D02 100%)",
+      badge: "PM Surya Ghar Approved",
+      tag: "Zero Electric Bill",
+      image: "/media/images/solar-rooftop.png",
+      indexNumber: "08",
+      oneLiner: "Tier-1 TOPCon bifacial modules with PGVCL on-grid net-metering & ₹78,000 subsidy.",
+      fullDescription: "N-Type TOPCon bifacial glass modules operating at 22.8% conversion efficiency. Includes elevated hot-dip galvanized mounting structures that preserve usable rooftop terrace space. Direct empanelment under PGVCL, GUVNL, and MNRE with 25-year linear performance warranty.",
+      chips: ["22.8% TOPCon", "₹78,000 Subsidy", "25-Yr Performance"],
+      specs: [
+        { value: "22.8%", label: "Cell Efficiency", icon: "zap" },
+        { value: "₹78,000", label: "Direct Govt DBT", icon: "gift" },
+        { value: "160 km/h", label: "Wind Resistance", icon: "wind" },
+        { value: "25 Years", label: "Linear Performance", icon: "award" }
+      ],
+      capacities: ["3 kW", "5 kW", "10 kW", "25 kW+"],
+      capacityFamilyMap: { "3 kW": 4, "5 kW": 6, "10 kW": 10, "25 kW+": 25 },
+      pdfUrl: "/downloads/EcoGreen-Rooftop-Solar-PV.pdf",
+      whatsappMsg: "Hello Eco Green Solar, I would like to inquire about Monocrystalline Rooftop Solar PV"
+    }
+  ]
 };
 
 export default content;
+

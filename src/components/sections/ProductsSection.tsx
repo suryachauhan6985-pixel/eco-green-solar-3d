@@ -315,7 +315,7 @@ export const ProductsSection: React.FC = () => {
               <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--brand-green)', fontWeight: 700 }}>
                 GIDC METODA FACTORY RANGE
               </span>
-              <h3 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', color: 'var(--text-primary)', marginTop: '0.3rem' }}>
+              <h3 style={{ fontSize: 'clamp(1.35rem, 2vw, 1.7rem)', color: 'var(--text-primary)', marginTop: '0.3rem', fontWeight: 800 }}>
                 Specialized Solar Water Heater Series
               </h3>
             </div>

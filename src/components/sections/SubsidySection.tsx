@@ -129,9 +129,10 @@ export const SubsidySection: React.FC = () => {
               </span>
               <h2
                 style={{
-                  fontSize: 'clamp(2.2rem, 3.8vw, 3.5rem)',
-                  lineHeight: 1.1,
+                  fontSize: 'clamp(1.5rem, 2.3vw, 2.15rem)',
+                  lineHeight: 1.15,
                   marginBottom: '1rem',
+                  fontWeight: 800,
                   color: 'var(--text-primary)',
                 }}
               >
@@ -221,7 +222,7 @@ export const SubsidySection: React.FC = () => {
             <span className="badge-green" style={{ marginBottom: '1rem' }}>
               SAVINGS SIMULATOR
             </span>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.2vw, 3rem)', lineHeight: 1.15, marginBottom: '0.8rem', color: 'var(--text-primary)' }}>
+            <h2 style={{ fontSize: 'clamp(1.45rem, 2.1vw, 1.95rem)', lineHeight: 1.18, marginBottom: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               {content.subsidy.calculator.headline}
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>

@@ -32,5 +32,18 @@ All photographic and video assets used in this project are licensed under free c
 |---|---|---|---|
 | `interactive-reel.mp4` | Cinematic dynamic solar energy footage (1080p, H.264) | Mixkit / Coverr (Free Commercial) | Hero scrub video & loop reels |
 
+### Transparent Studio Cutout Assets (`/public/media/products/`)
+
+| File Name | Description | Source / Format |
+|---|---|---|
+| `pressurized-etc.webp` | Pressurized ETC Series Solar Water Heater | Normalized WebP Cutout (Alpha 100) |
+| `copper-coil.webp` | Copper Coil & Glass-Line Solar Heater | Normalized WebP Cutout (Alpha 100) |
+| `diamond-etc.webp` | Diamond ETC Series Thermosiphon System | Normalized WebP Cutout (Alpha 100) |
+| `glassline-ceramic.webp` | Glass-Line Ceramic Series Water Heater | Normalized WebP Cutout (Alpha 100) |
+| `pearl-domestic.webp` | Pearl Domestic Range Solar Water Heater | Normalized WebP Cutout (Alpha 100) |
+| `commercial-heatpump.webp` | Commercial Air-Source Heat Pump Unit | Normalized WebP Cutout (Alpha 100) |
+| `pressure-booster.webp` | Hydro-Pneumatic Pressure Booster Pump | Normalized WebP Cutout (Alpha 100) |
+| `rooftop-solar.webp` | Monocrystalline N-Type TOPCon Rooftop Solar Array | Normalized WebP Cutout (Alpha 100) |
+
 ---
-*For any installation specific photo marked `REPLACE_WITH_REAL_PHOTO` in `src/content.js`, you can drop high-resolution site photos directly into this folder.*
+*For any installation specific photo marked `REPLACE_WITH_REAL_PHOTO` in `src/content.ts`, you can drop high-resolution site photos directly into this folder.*

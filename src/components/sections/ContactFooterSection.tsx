@@ -61,15 +61,16 @@ export const ContactFooterSection: React.FC = () => {
               </span>
               <h2
                 style={{
-                  fontSize: 'clamp(2.2rem, 4vw, 3.8rem)',
-                  lineHeight: 1.1,
-                  marginBottom: '1.2rem',
+                  fontSize: 'clamp(1.6rem, 2.4vw, 2.25rem)',
+                  lineHeight: 1.18,
+                  marginBottom: '1rem',
                   color: 'var(--text-primary)',
+                  fontWeight: 800,
                 }}
               >
                 <TextReveal>{content.contact.headline}</TextReveal>
               </h2>
-              <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2.5rem' }}>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2.2rem' }}>
                 {content.contact.subheadline}
               </p>
 

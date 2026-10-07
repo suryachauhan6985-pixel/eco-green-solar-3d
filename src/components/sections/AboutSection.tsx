@@ -116,7 +116,7 @@ export const AboutSection: React.FC = () => {
             >
               <div
                 style={{
-                  fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)',
+                  fontSize: 'clamp(1.8rem, 2.8vw, 2.4rem)',
                   fontWeight: 800,
                   fontFamily: 'var(--font-display)',
                   color: 'var(--brand-green)',
@@ -129,7 +129,7 @@ export const AboutSection: React.FC = () => {
               <div
                 style={{
                   fontWeight: 700,
-                  fontSize: '1.05rem',
+                  fontSize: '1rem',
                   color: 'var(--text-primary)',
                   marginBottom: '0.3rem',
                 }}
@@ -172,7 +172,7 @@ export const AboutSection: React.FC = () => {
             </span>
             <blockquote
               style={{
-                fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
+                fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)',
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
                 lineHeight: 1.35,

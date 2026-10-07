@@ -103,9 +103,10 @@ export const ServicesSection: React.FC = () => {
 
                   <h3
                     style={{
-                      fontSize: 'clamp(1.7rem, 2.8vw, 2.3rem)',
+                      fontSize: 'clamp(1.35rem, 2vw, 1.7rem)',
                       marginBottom: '1rem',
-                      lineHeight: 1.2,
+                      lineHeight: 1.25,
+                      fontWeight: 800,
                       color: 'var(--text-primary)',
                     }}
                   >

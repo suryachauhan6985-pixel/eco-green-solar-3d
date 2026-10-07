@@ -177,9 +177,9 @@ export const HeroSection: React.FC = () => {
           <div style={{ marginBottom: '1.2rem' }}>
             <h1
               style={{
-                fontSize: 'clamp(2.4rem, 4.5vw, 4.2rem)',
-                letterSpacing: '-0.035em',
-                lineHeight: 1.08,
+                fontSize: 'clamp(1.85rem, 3.2vw, 2.75rem)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.12,
                 color: '#0F172A',
                 fontWeight: 800,
                 textShadow: '0 2px 20px rgba(255, 255, 255, 0.8)',
@@ -197,12 +197,12 @@ export const HeroSection: React.FC = () => {
           {/* Subtitle */}
           <p
             style={{
-              fontSize: 'clamp(0.95rem, 1.2vw, 1.12rem)',
+              fontSize: 'clamp(0.9rem, 1.1vw, 1.05rem)',
               color: '#1E293B',
               marginBottom: '1.8rem',
               lineHeight: 1.55,
               fontWeight: 500,
-              maxWidth: '580px',
+              maxWidth: '560px',
             }}
           >
             {content.hero.subheadline}
