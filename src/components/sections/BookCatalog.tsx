@@ -323,9 +323,9 @@ export const BookCatalog: React.FC = () => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <img
-                  src="/assets/logo.png"
+                  src="/assets/logo-transparent.png"
                   alt="Eco Green Solar Logo"
-                  style={{ height: '36px', width: 'auto', maxHeight: '36px', objectFit: 'contain' }}
+                  style={{ height: '42px', width: 'auto', maxHeight: '42px', objectFit: 'contain' }}
                 />
                 <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-primary)', borderLeft: '1px solid #CBD5E1', paddingLeft: '0.9rem' }}>
                   Official Factory Catalog
@@ -426,7 +426,7 @@ export const BookCatalog: React.FC = () => {
                         fontWeight: 600,
                       }}
                     >
-                      <span>📍</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                       <span>{activePage.content.factory}</span>
                     </div>
                   </div>
@@ -502,7 +502,7 @@ export const BookCatalog: React.FC = () => {
                     <div className="anim-text-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginBottom: '1.6rem' }}>
                       {activePage.content.features?.map((feat, fIdx) => (
                         <div key={fIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', fontSize: '0.92rem', color: 'var(--text-secondary)' }}>
-                          <span style={{ color: 'var(--brand-green)', fontWeight: 800, marginTop: '2px' }}>✓</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -552,7 +552,7 @@ export const BookCatalog: React.FC = () => {
                     <div className="anim-text-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', marginBottom: '1.8rem' }}>
                       {activePage.content.features?.map((feat, fIdx) => (
                         <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', fontSize: '0.92rem', color: 'var(--text-secondary)' }}>
-                          <span style={{ color: 'var(--brand-green)', fontWeight: 800 }}>★</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                           <span>{feat}</span>
                         </div>
                       ))}

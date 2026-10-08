@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Award, Factory, ShieldCheck, Clock, ArrowRight } from 'lucide-react';
 import { TextReveal } from '../common/TextReveal.tsx';
 import { CountUpNumber } from '../common/CountUpNumber.tsx';
 import { content } from '../../content';
@@ -56,50 +57,73 @@ export const SubsidySection: React.FC = () => {
               {
                 title: '19 Years Regional Experience',
                 desc: 'Specialized Saurashtra terrace design and high wind-load engineering deployed since 2007.',
-                icon: '★',
+                Icon: Award,
               },
               {
                 title: 'GIDC Metoda Factory',
                 desc: 'In-house manufacturing of solar water heaters and mounting structures right here in Rajkot.',
-                icon: '⚙',
+                Icon: Factory,
               },
               {
                 title: 'Empanelled PM Surya Ghar Partner',
                 desc: 'Direct registration on the National Solar Portal ensuring 100% smooth DBT subsidy credits.',
-                icon: '✓',
+                Icon: ShieldCheck,
               },
               {
                 title: '24-Hour Service Guarantee',
                 desc: 'Prompt technician visit and local parts availability across Saurashtra for continuous uptime.',
-                icon: '⚡',
+                Icon: Clock,
               },
-            ].map((item, idx) => (
-              <div key={idx} className="pro-card" style={{ padding: '2.5rem 2rem', backgroundColor: '#FFFFFF' }}>
+            ].map((item, idx) => {
+              const CardIcon = item.Icon;
+              return (
                 <div
+                  key={idx}
+                  className="pro-card"
                   style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
-                    backgroundColor: 'var(--brand-green-light)',
-                    color: 'var(--brand-green)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '1.25rem',
-                    marginBottom: '1.4rem',
-                    fontWeight: 700,
+                    padding: '2.5rem 2rem',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(0, 143, 79, 0.12)',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
+                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-6px)';
+                    e.currentTarget.style.borderColor = '#008F4F';
+                    e.currentTarget.style.boxShadow = '0 16px 32px rgba(0, 143, 79, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = 'rgba(0, 143, 79, 0.12)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.03)';
                   }}
                 >
-                  {item.icon}
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      backgroundColor: '#E6F4EC',
+                      color: '#008F4F',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '1.4rem',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <CardIcon size={24} />
+                  </div>
+                  <h3 style={{ fontSize: '1.25rem', marginBottom: '0.6rem', color: 'var(--text-primary)', fontWeight: 750 }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 style={{ fontSize: '1.25rem', marginBottom: '0.6rem', color: 'var(--text-primary)' }}>
-                  {item.title}
-                </h3>
-                <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                  {item.desc}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -109,124 +133,135 @@ export const SubsidySection: React.FC = () => {
             backgroundColor: '#FFFFFF',
             borderRadius: '24px',
             border: '1px solid var(--border-light)',
-            boxShadow: 'var(--shadow-card)',
-            padding: '3.5rem 3vw',
+            padding: 'clamp(2rem, 4vw, 3.5rem)',
             marginBottom: '6rem',
+            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.03)',
           }}
         >
           <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(12, 1fr)',
-              gap: '3rem',
+              display: 'flex',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: '3rem',
+              flexWrap: 'wrap',
+              gap: '1.5rem',
+              marginBottom: '2.5rem',
+              paddingBottom: '2rem',
+              borderBottom: '1px solid var(--border-light)',
             }}
           >
-            <div style={{ gridColumn: 'span 7' }} className="col-span-12 md:col-span-7">
-              <span className="badge-amber" style={{ marginBottom: '1rem' }}>
-                CENTRAL GOVERNMENT SCHEME
+            <div>
+              <span className="badge-green" style={{ marginBottom: '0.8rem' }}>
+                DIRECT BANK TRANSFER (DBT)
               </span>
-              <h2
-                style={{
-                  fontSize: 'clamp(1.5rem, 2.3vw, 2.15rem)',
-                  lineHeight: 1.15,
-                  marginBottom: '1rem',
-                  fontWeight: 800,
-                  color: 'var(--text-primary)',
-                }}
-              >
-                {content.subsidy.headline}
-              </h2>
-              <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                {content.subsidy.subheadline}
+              <h3 style={{ fontSize: 'clamp(1.5rem, 2.4vw, 2rem)', color: 'var(--text-primary)', fontWeight: 800 }}>
+                PM Surya Ghar: Muft Bijli Yojana
+              </h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', marginTop: '0.4rem', maxWidth: '650px' }}>
+                Eco Green Solar is officially registered and empanelled on the National Solar Portal. We handle complete documentation, DISCOM net-meter approvals, and subsidy disbursal.
               </p>
             </div>
-
-            <div style={{ gridColumn: 'span 5' }} className="col-span-12 md:col-span-5">
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                  gap: '1rem',
-                }}
-              >
-                {content.subsidy.slabs.map((slab, sIdx) => (
-                  <div
-                    key={sIdx}
-                    style={{
-                      padding: '1.4rem 1rem',
-                      backgroundColor: 'var(--brand-green-light)',
-                      border: '1px solid var(--brand-green-tint)',
-                      borderRadius: '16px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
-                      {slab.kw} Capacity
-                    </div>
-                    <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--brand-green)', fontFamily: 'var(--font-display)' }}>
-                      {slab.subsidy}
-                    </div>
-                    <div style={{ fontSize: '0.72rem', color: 'var(--brand-green-dark)', fontWeight: 600, marginTop: '0.2rem' }}>
-                      Direct Bank Transfer
-                    </div>
-                  </div>
-                ))}
+            <div
+              style={{
+                backgroundColor: 'var(--brand-green-light)',
+                borderRadius: '16px',
+                padding: '1.2rem 1.6rem',
+                textAlign: 'center',
+                border: '1px solid rgba(0, 143, 79, 0.2)',
+              }}
+            >
+              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--brand-green)', textTransform: 'uppercase' }}>
+                Maximum Central Subsidy
+              </div>
+              <div style={{ fontSize: '2rem', fontWeight: 850, color: 'var(--brand-green-dark)', lineHeight: 1.1, marginTop: '0.2rem' }}>
+                ₹78,000
+              </div>
+              <div style={{ fontSize: '0.74rem', color: '#4B6354', marginTop: '0.2rem' }}>
+                Direct into beneficiary bank account
               </div>
             </div>
           </div>
 
-          {/* 4 Frictionless Steps */}
+          {/* 4-Step Subsidy Process */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
               gap: '1.5rem',
             }}
           >
-            {content.subsidy.steps.map((st) => (
+            {[
+              {
+                step: '01',
+                title: 'Site Survey & Feasibility',
+                desc: 'Our engineers conduct shadow analysis on your terrace to compute optimal kW capacity.',
+              },
+              {
+                step: '02',
+                title: 'Portal Registration',
+                desc: 'We register your application on the National Solar Portal and submit DISCOM technical drawings.',
+              },
+              {
+                step: '03',
+                title: 'Precision Turnkey EPC',
+                desc: 'Installation of high-efficiency N-type solar modules with certified galvanized mounting structure.',
+              },
+              {
+                step: '04',
+                title: 'Net-Meter & Subsidy Credit',
+                desc: 'DISCOM inspects meter, commissions bi-directional unit, and ₹78,000 DBT is credited to your bank.',
+              },
+            ].map((st, idx) => (
               <div
-                key={st.step}
+                key={idx}
                 style={{
-                  padding: '1.8rem',
-                  backgroundColor: 'var(--bg-subtle)',
+                  padding: '1.6rem',
                   borderRadius: '16px',
-                  border: '1px solid var(--border-subtle)',
+                  backgroundColor: '#F8FAF8',
+                  border: '1px solid rgba(0, 143, 79, 0.1)',
                 }}
               >
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--brand-green)', fontFamily: 'var(--font-display)', marginBottom: '0.5rem' }}>
+                <div
+                  style={{
+                    fontSize: '1.4rem',
+                    fontWeight: 850,
+                    color: 'var(--brand-green)',
+                    fontFamily: 'var(--font-display)',
+                    marginBottom: '0.6rem',
+                  }}
+                >
                   {st.step}
                 </div>
-                <div style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.4rem', color: 'var(--text-primary)' }}>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 750, color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
                   {st.title}
-                </div>
-                <div style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                </h4>
+                <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
                   {st.desc}
-                </div>
+                </p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Interactive Solar Savings Calculator with Incremental Numbers */}
+        {/* Interactive Savings Calculator */}
         <div
-          className="pro-card"
           style={{
-            padding: '3.5rem 3vw',
             backgroundColor: '#FFFFFF',
             borderRadius: '24px',
+            border: '1px solid var(--border-light)',
+            padding: 'clamp(2rem, 4vw, 3.5rem)',
+            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.03)',
           }}
         >
-          <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 3rem' }}>
-            <span className="badge-green" style={{ marginBottom: '1rem' }}>
-              SAVINGS SIMULATOR
+          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 3rem' }}>
+            <span className="badge-green" style={{ marginBottom: '0.8rem' }}>
+              SOLAR ROI CALCULATOR
             </span>
-            <h2 style={{ fontSize: 'clamp(1.45rem, 2.1vw, 1.95rem)', lineHeight: 1.18, marginBottom: '0.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-              {content.subsidy.calculator.headline}
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-              {content.subsidy.calculator.subheadline}
+            <h3 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', color: 'var(--text-primary)', fontWeight: 800 }}>
+              Interactive Solar Savings Calculator
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', marginTop: '0.5rem' }}>
+              Slide your average monthly PGVCL/UGVCL/DGVCL electricity bill to see your government subsidy, recommended plant size, and lifetime financial savings.
             </p>
           </div>
 
@@ -234,25 +269,49 @@ export const SubsidySection: React.FC = () => {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(12, 1fr)',
-              gap: '3rem',
+              gap: '2.5rem',
               alignItems: 'center',
             }}
           >
-            {/* Left: Interactive Slider Control */}
+            {/* Left: Input Slider Box */}
             <div style={{ gridColumn: 'span 6' }} className="col-span-12 md:col-span-6">
-              <div style={{ marginBottom: '2.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 600 }}>
-                    Monthly Electricity Bill
+              <div
+                style={{
+                  backgroundColor: '#F8FAF8',
+                  padding: '2.5rem 2rem',
+                  borderRadius: '20px',
+                  border: '1px solid var(--border-light)',
+                }}
+              >
+                <label
+                  htmlFor="monthly-bill-input"
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '1.2rem',
+                  }}
+                >
+                  <span style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+                    Your Monthly Electricity Bill
                   </span>
-                  <span style={{ fontSize: '2.6rem', fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--brand-green)' }}>
-                    ₹<CountUpNumber end={monthlyBill} duration={400} />
+                  <span
+                    style={{
+                      fontSize: '1.6rem',
+                      fontWeight: 850,
+                      color: 'var(--brand-green)',
+                      fontFamily: 'var(--font-display)',
+                    }}
+                  >
+                    ₹{monthlyBill.toLocaleString('en-IN')}
                   </span>
-                </div>
+                </label>
 
+                {/* Slider Component */}
                 <input
+                  id="monthly-bill-input"
                   type="range"
-                  min="1000"
+                  min="1500"
                   max="25000"
                   step="500"
                   value={monthlyBill}
@@ -261,143 +320,151 @@ export const SubsidySection: React.FC = () => {
                     width: '100%',
                     height: '8px',
                     borderRadius: '4px',
-                    outline: 'none',
                     accentColor: 'var(--brand-green)',
                     cursor: 'pointer',
+                    marginBottom: '1.2rem',
                   }}
-                  data-cursor="Drag"
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.5rem', fontWeight: 500 }}>
-                  <span>₹1,000 / mo</span>
-                  <span>₹12,500</span>
-                  <span>₹25,000+ / mo</span>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    fontSize: '0.8rem',
+                    color: 'var(--text-muted)',
+                    fontWeight: 600,
+                  }}
+                >
+                  <span>₹1,500/mo</span>
+                  <span>₹10,000/mo</span>
+                  <span>₹25,000/mo</span>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: '2rem',
+                    paddingTop: '1.5rem',
+                    borderTop: '1px solid rgba(0,0,0,0.06)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Recommended Solar Plant</div>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                      {recommendedKw} kW Rooftop System
+                    </div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Monthly Generation</div>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--brand-green)' }}>
+                      ~{recommendedKw * 125} Units
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div
-                style={{
-                  padding: '1.5rem 1.8rem',
-                  backgroundColor: 'var(--brand-green-light)',
-                  borderRadius: '16px',
-                  border: '1px solid var(--brand-green-tint)',
-                  marginBottom: '2rem',
-                }}
-              >
-                <div style={{ fontSize: '0.85rem', color: 'var(--brand-green-dark)', fontWeight: 600 }}>
-                  Recommended Rooftop Capacity:
-                </div>
-                <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--brand-green)', fontFamily: 'var(--font-display)', marginTop: '0.2rem' }}>
-                  <CountUpNumber end={recommendedKw} suffix=" kW Solar Array" duration={500} />
-                </div>
-                <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>
-                  Generates ~{monthlyUnits} units/month • Requires ~{recommendedKw * 90} sq. ft. shadow-free terrace
-                </div>
-              </div>
-
-              <a
-                href={whatsappInquiryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
-                style={{ width: '100%' }}
-                data-cursor="WhatsApp"
-              >
-                <span>Get Exact Technical Quote on WhatsApp</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </a>
             </div>
 
-            {/* Right: Real-Time Growing Incremental Numbers Grid */}
+            {/* Right: Calculations & Subsidy Results */}
             <div style={{ gridColumn: 'span 6' }} className="col-span-12 md:col-span-6">
               <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(2, 1fr)',
                   gap: '1.2rem',
+                  marginBottom: '1.8rem',
                 }}
               >
                 <div
                   style={{
-                    padding: '1.8rem',
-                    backgroundColor: 'var(--bg-subtle)',
-                    borderRadius: '18px',
-                    border: '1px solid var(--border-light)',
+                    padding: '1.6rem',
+                    borderRadius: '16px',
+                    backgroundColor: 'var(--brand-green-light)',
+                    border: '1px solid rgba(0, 143, 79, 0.2)',
                   }}
                 >
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
-                    Government Subsidy
-                  </span>
-                  <div style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--brand-green)', fontFamily: 'var(--font-display)', marginTop: '0.4rem' }}>
-                    <CountUpNumber end={subsidyAmount} prefix="₹" duration={600} />
+                  <div style={{ fontSize: '0.82rem', fontWeight: 650, color: 'var(--brand-green-dark)' }}>
+                    Applicable PM Subsidy
                   </div>
-                  <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>
-                    Direct DBT to bank account
+                  <div style={{ fontSize: '1.6rem', fontWeight: 850, color: 'var(--brand-green-dark)', marginTop: '0.3rem' }}>
+                    {subsidyLabel}
                   </div>
+                  <div style={{ fontSize: '0.74rem', color: '#4B6354', marginTop: '0.2rem' }}>Direct Bank Transfer</div>
                 </div>
 
                 <div
                   style={{
-                    padding: '1.8rem',
-                    backgroundColor: 'var(--bg-subtle)',
-                    borderRadius: '18px',
+                    padding: '1.6rem',
+                    borderRadius: '16px',
+                    backgroundColor: '#F8FAF8',
                     border: '1px solid var(--border-light)',
                   }}
                 >
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
-                    Annual Savings
-                  </span>
-                  <div style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--sun-warm)', fontFamily: 'var(--font-display)', marginTop: '0.4rem' }}>
-                    <CountUpNumber end={annualSavings} prefix="₹" duration={600} />
+                  <div style={{ fontSize: '0.82rem', fontWeight: 650, color: 'var(--text-secondary)' }}>
+                    Annual Bill Reduction
                   </div>
-                  <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>
-                    Every single year
+                  <div style={{ fontSize: '1.6rem', fontWeight: 850, color: 'var(--text-primary)', marginTop: '0.3rem' }}>
+                    ₹{annualSavings.toLocaleString('en-IN')}
                   </div>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>92% Electricity Offset</div>
                 </div>
 
                 <div
                   style={{
-                    padding: '1.8rem',
-                    backgroundColor: 'var(--bg-subtle)',
-                    borderRadius: '18px',
+                    padding: '1.6rem',
+                    borderRadius: '16px',
+                    backgroundColor: '#F8FAF8',
                     border: '1px solid var(--border-light)',
                   }}
                 >
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
-                    25-Year Returns
-                  </span>
-                  <div style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', marginTop: '0.4rem' }}>
-                    <CountUpNumber end={lifetimeSavings} prefix="₹" duration={600} />
+                  <div style={{ fontSize: '0.82rem', fontWeight: 650, color: 'var(--text-secondary)' }}>
+                    25-Year Lifetime Savings
                   </div>
-                  <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>
-                    Lifetime tariff inflation hedge
+                  <div style={{ fontSize: '1.6rem', fontWeight: 850, color: 'var(--brand-green)', marginTop: '0.3rem' }}>
+                    ₹{(lifetimeSavings / 100000).toFixed(1)} Lakhs
                   </div>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Inflation-proof power</div>
                 </div>
 
                 <div
                   style={{
-                    padding: '1.8rem',
-                    backgroundColor: 'var(--bg-subtle)',
-                    borderRadius: '18px',
+                    padding: '1.6rem',
+                    borderRadius: '16px',
+                    backgroundColor: '#F8FAF8',
                     border: '1px solid var(--border-light)',
                   }}
                 >
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
-                    Estimated Payback
-                  </span>
-                  <div style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--brand-green)', fontFamily: 'var(--font-display)', marginTop: '0.4rem' }}>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 650, color: 'var(--text-secondary)' }}>
+                    Estimated Payback Period
+                  </div>
+                  <div style={{ fontSize: '1.6rem', fontWeight: 850, color: 'var(--text-primary)', marginTop: '0.3rem' }}>
                     {paybackYears} Years
                   </div>
-                  <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>
-                    Free electricity after payback
-                  </div>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Free power afterwards</div>
                 </div>
               </div>
 
-              <div style={{ marginTop: '1.2rem', fontSize: '0.78rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-                {content.subsidy.calculator.disclaimer}
-              </div>
+              {/* Instant WhatsApp Calculation CTA */}
+              <a
+                href={whatsappInquiryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.6rem',
+                  padding: '1rem',
+                  fontSize: '1rem',
+                }}
+                data-cursor="WhatsApp"
+              >
+                <span>Claim ₹{subsidyAmount.toLocaleString('en-IN')} Subsidy on WhatsApp</span>
+                <ArrowRight size={18} />
+              </a>
             </div>
           </div>
         </div>

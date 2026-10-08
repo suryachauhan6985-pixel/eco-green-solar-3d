@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { content } from '../../content';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
+  const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
+
+  // Mobile drawer accordion state
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setProductsDropdownOpen(false);
+    setProjectsDropdownOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 15);
 
-      // Detect background change threshold
-      setIsScrolled(currentScrollY > 30);
-
-      // Scroll direction handling
-      // Always show when near top of the page
-      if (currentScrollY <= 60) {
+      if (currentScrollY <= 50) {
         setIsVisible(true);
       } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 8) {
-        // Scrolling DOWN -> Hide Navbar
         setIsVisible(false);
       } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 8) {
-        // Scrolling UP -> Show Navbar
         setIsVisible(true);
       }
-
       lastScrollY = currentScrollY;
     };
 
@@ -34,24 +41,44 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Home', href: '#hero' },
-    { label: 'About', href: '#about' },
-    { label: 'Products', href: '#products' },
-    { label: 'Catalog', href: '#catalog' },
-    { label: 'Services', href: '#services' },
-    { label: 'Subsidy & Sizing', href: '#subsidy' },
-    { label: 'Projects', href: '#gallery' },
-    { label: 'Contact', href: '#contact' },
+  // Clean product list: no badges, clean elegant names
+  const productsList = [
+    { label: "Solar Rooftop", path: "/solar-rooftop" },
+    { label: "Diamond ETC Solar", path: "/products/diamond" },
+    { label: "Glass Line Solar", path: "/products/glass-line" },
+    { label: "Pearl Solar", path: "/products/pearl" },
+    { label: "Pressurized Solar", path: "/products/pressurized" },
+    { label: "Copper Solar", path: "/products/copper" },
+    { label: "Heat Pump", path: "/products/heat-pump" },
+    { label: "Pressure Pump", path: "/products/pressure-pump" },
+    { label: "Cleanx Nozzles", path: "/products/cleanx-nozzles" }
   ];
 
-  const handleLinkClick = (href: string) => {
-    setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // Clean projects list: no badges
+  const projectsList = [
+        { label: "Ground Mounted Plants", path: "/projects/ground-mounted" },
+    { label: "Industrial Rooftop Solar", path: "/projects/industrial" },
+    { label: "Residential Rooftops", path: "/projects/residential" },
+    { label: "Commercial Solar Water Heaters", path: "/projects/solar-water-heater" },
+    { label: "Heat Pump Installations", path: "/projects/heat-pump" },
+  ];
+
+  const isProductsActive = location.pathname.startsWith('/products') || location.pathname === '/solar-rooftop';
+  const isProjectsActive = location.pathname.startsWith('/projects') || location.pathname === '/ground-mounted' || location.pathname === '/industrial' || location.pathname === '/residential';
+
+  const linkStyle = ({ isActive }: { isActive: boolean }) => ({
+    color: isActive ? '#008F4F' : '#1E293B',
+    backgroundColor: isActive ? 'rgba(0, 143, 79, 0.08)' : 'transparent',
+    fontSize: '0.88rem',
+    fontWeight: isActive ? 700 : 600,
+    textDecoration: 'none',
+    padding: '0.5rem 0.85rem',
+    borderRadius: '10px',
+    whiteSpace: 'nowrap' as const,
+    display: 'inline-flex',
+    alignItems: 'center',
+    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+  });
 
   return (
     <header
@@ -62,262 +89,545 @@ export const Navbar: React.FC = () => {
         width: '100%',
         zIndex: 100,
         transform: isVisible || mobileMenuOpen ? 'translateY(0)' : 'translateY(-105%)',
-        backgroundColor: isScrolled ? 'rgba(244, 250, 246, 0.88)' : 'rgba(246, 252, 248, 0.78)',
-        backdropFilter: 'blur(20px) saturate(170%)',
-        WebkitBackdropFilter: 'blur(20px) saturate(170%)',
-        borderBottom: '1px solid rgba(0, 143, 79, 0.12)',
+        // Transparent glossy glassmorphic background
+        backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.72)',
+        backdropFilter: 'blur(24px) saturate(190%)',
+        WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
         boxShadow: isScrolled
-          ? '0 12px 35px rgba(0, 143, 79, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)'
-          : '0 4px 20px rgba(0, 143, 79, 0.03)',
-        transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease, box-shadow 0.35s ease',
+          ? '0 12px 30px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02)'
+          : '0 4px 20px rgba(0, 0, 0, 0.03)',
+        transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, box-shadow 0.3s ease',
       }}
     >
       <div
         style={{
+          width: '100%',
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '0.45rem 4vw',
+          padding: '0 4vw',
+          height: '82px', // Slightly increased height for breathing room and luxury presence
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '1.2rem',
+          gap: '1rem',
         }}
       >
-        {/* Left: Prominent Authentic Eco Green Solar Logo */}
-        <a
-          href="#hero"
+        {/* Brand Logo Only */}
+        <Link
+          to="/"
           style={{
-            textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
+            textDecoration: 'none',
             flexShrink: 0,
-            transition: 'transform 0.25s ease',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.03)')}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
           data-cursor="Home"
         >
           <img
-            src="/assets/logo.png"
+            src="/assets/logo-transparent.png"
             alt="Eco Green Solar"
-            className="navbar-brand-logo"
             style={{
+              height: '46px',
               width: 'auto',
+              maxHeight: '46px',
               objectFit: 'contain',
               display: 'block',
-              filter: 'drop-shadow(0 3px 12px rgba(0, 143, 79, 0.18))',
+            }}
+            onError={(e) => {
+              const target = e.currentTarget;
+              target.onerror = null;
+              target.src = '/media/images/logo-transparent.png';
             }}
           />
-        </a>
+        </Link>
 
-        {/* Center: Desktop Navigation Bar Links with Professional Glass Pill Styling (Single line, no wrap) */}
+        {/* Desktop Navigation Links */}
         <nav
-          className="hidden xl:flex"
           style={{
+            display: 'flex',
             alignItems: 'center',
-            gap: '0.2rem',
-            backgroundColor: 'rgba(255, 255, 255, 0.72)',
-            padding: '0.35rem 0.6rem',
-            borderRadius: '999px',
-            border: '1px solid rgba(0, 143, 79, 0.12)',
-            boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 10px rgba(0, 143, 79, 0.04)',
-            whiteSpace: 'nowrap',
+            gap: '0.4rem',
             flexWrap: 'nowrap',
-            flexShrink: 0,
           }}
+          className="hidden xl:flex"
         >
-          {navLinks.map((link, idx) => (
+          <NavLink to="/" end style={linkStyle}>
+            Home
+          </NavLink>
+
+          
+
+          {/* Products Dropdown (Ultra-Smooth Opening, No Badges) */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => setProductsDropdownOpen(true)}
+            onMouseLeave={() => setProductsDropdownOpen(false)}
+          >
             <button
-              key={idx}
-              onClick={() => handleLinkClick(link.href)}
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#1E293B',
+                color: isProductsActive ? '#008F4F' : '#1E293B',
+                backgroundColor: isProductsActive ? 'rgba(0, 143, 79, 0.08)' : 'transparent',
                 fontSize: '0.88rem',
-                fontWeight: 650,
+                fontWeight: isProductsActive ? 700 : 600,
                 cursor: 'pointer',
-                padding: '0.45rem 0.8rem',
-                borderRadius: '999px',
+                padding: '0.5rem 0.85rem',
+                borderRadius: '10px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
                 whiteSpace: 'nowrap',
-                flexShrink: 0,
                 transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#008F4F';
-                e.currentTarget.style.backgroundColor = 'rgba(0, 143, 79, 0.08)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = '#1E293B';
-                e.currentTarget.style.backgroundColor = 'transparent';
+            >
+              <span>Products</span>
+              <span style={{ fontSize: '0.62rem', opacity: 0.65, transform: productsDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s ease', display: 'inline-block' }}>▼</span>
+            </button>
+
+            {/* Products Dropdown Menu Box - Glassmorphic, Smooth Transition */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '100%',
+                left: '-20px',
+                width: '260px',
+                paddingTop: '0.65rem',
+                visibility: productsDropdownOpen ? 'visible' : 'hidden',
+                opacity: productsDropdownOpen ? 1 : 0,
+                transform: productsDropdownOpen ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.97)',
+                transition: 'opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease',
+                pointerEvents: productsDropdownOpen ? 'auto' : 'none',
+                zIndex: 110,
               }}
             >
-              {link.label}
+              <div
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                  backdropFilter: 'blur(28px) saturate(190%)',
+                  WebkitBackdropFilter: 'blur(28px) saturate(190%)',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  boxShadow: '0 20px 45px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 143, 79, 0.05)',
+                  padding: '0.6rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.15rem',
+                }}
+              >
+                {productsList.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    to={item.path}
+                    onClick={() => setProductsDropdownOpen(false)}
+                    style={{
+                      display: 'block',
+                      padding: '0.55rem 0.85rem',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      color: location.pathname === item.path ? '#008F4F' : '#1E293B',
+                      fontSize: '0.88rem',
+                      fontWeight: location.pathname === item.path ? 700 : 600,
+                      whiteSpace: 'nowrap',
+                      transition: 'all 0.18s ease',
+                      backgroundColor: location.pathname === item.path ? 'rgba(0, 143, 79, 0.08)' : 'transparent',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(0, 143, 79, 0.08)';
+                      e.currentTarget.style.color = '#008F4F';
+                      e.currentTarget.style.transform = 'translateX(4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = location.pathname === item.path ? 'rgba(0, 143, 79, 0.08)' : 'transparent';
+                      e.currentTarget.style.color = location.pathname === item.path ? '#008F4F' : '#1E293B';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <NavLink to="/services" style={linkStyle}>
+            Services
+          </NavLink>
+
+          {/* Projects Dropdown (Ultra-Smooth Opening, No Badges) */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => setProjectsDropdownOpen(true)}
+            onMouseLeave={() => setProjectsDropdownOpen(false)}
+          >
+            <button
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: isProjectsActive ? '#008F4F' : '#1E293B',
+                backgroundColor: isProjectsActive ? 'rgba(0, 143, 79, 0.08)' : 'transparent',
+                fontSize: '0.88rem',
+                fontWeight: isProjectsActive ? 700 : 600,
+                cursor: 'pointer',
+                padding: '0.5rem 0.85rem',
+                borderRadius: '10px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
+              <span>Projects</span>
+              <span style={{ fontSize: '0.62rem', opacity: 0.65, transform: projectsDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s ease', display: 'inline-block' }}>▼</span>
             </button>
-          ))}
+
+            {/* Projects Dropdown Menu Box - Glassmorphic, Smooth Transition */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '100%',
+                left: '-20px',
+                width: '270px',
+                paddingTop: '0.65rem',
+                visibility: projectsDropdownOpen ? 'visible' : 'hidden',
+                opacity: projectsDropdownOpen ? 1 : 0,
+                transform: projectsDropdownOpen ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.97)',
+                transition: 'opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease',
+                pointerEvents: projectsDropdownOpen ? 'auto' : 'none',
+                zIndex: 110,
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                  backdropFilter: 'blur(28px) saturate(190%)',
+                  WebkitBackdropFilter: 'blur(28px) saturate(190%)',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  boxShadow: '0 20px 45px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 143, 79, 0.05)',
+                  padding: '0.6rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.15rem',
+                }}
+              >
+                {projectsList.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    to={item.path}
+                    onClick={() => setProjectsDropdownOpen(false)}
+                    style={{
+                      display: 'block',
+                      padding: '0.55rem 0.85rem',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      color: location.pathname === item.path ? '#008F4F' : '#1E293B',
+                      fontSize: '0.88rem',
+                      fontWeight: location.pathname === item.path ? 700 : 600,
+                      whiteSpace: 'nowrap',
+                      transition: 'all 0.18s ease',
+                      backgroundColor: location.pathname === item.path ? 'rgba(0, 143, 79, 0.08)' : 'transparent',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(0, 143, 79, 0.08)';
+                      e.currentTarget.style.color = '#008F4F';
+                      e.currentTarget.style.transform = 'translateX(4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = location.pathname === item.path ? 'rgba(0, 143, 79, 0.08)' : 'transparent';
+                      e.currentTarget.style.color = location.pathname === item.path ? '#008F4F' : '#1E293B';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <NavLink to="/about" style={linkStyle}>
+            About Us
+          </NavLink>
+
+          
+
+          <NavLink to="/catalogue" style={linkStyle}>
+            Catalogue
+          </NavLink>
+
+          <NavLink to="/contact" style={linkStyle}>
+            Contact Us
+          </NavLink>
         </nav>
 
-        {/* Right: Phone CTA & Consultation Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexShrink: 0 }}>
+        {/* Right Action Area - Clean, Perfectly Aligned */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+          {/* Customer Hotline Pill */}
           <a
-            href={`tel:${content.contact.phone}`}
+            href="tel:+917878444414"
             className="hidden sm:inline-flex"
             style={{
               alignItems: 'center',
-              gap: '0.55rem',
-              color: '#0F172A',
-              textDecoration: 'none',
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              padding: '0.6rem 1.25rem',
-              backgroundColor: 'rgba(255, 255, 255, 0.85)',
-              border: '1px solid rgba(0, 143, 79, 0.2)',
+              padding: '0.52rem 1.05rem',
               borderRadius: '999px',
-              boxShadow: '0 2px 8px rgba(0, 143, 79, 0.05)',
-              transition: 'all 0.22s ease',
+              backgroundColor: 'rgba(0, 143, 79, 0.08)',
+              color: '#008F4F',
+              textDecoration: 'none',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              border: '1px solid rgba(0, 143, 79, 0.2)',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.2s ease',
+              lineHeight: 1,
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#008F4F';
-              e.currentTarget.style.backgroundColor = '#FFFFFF';
+              e.currentTarget.style.backgroundColor = 'rgba(0, 143, 79, 0.14)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(0, 143, 79, 0.2)';
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
+              e.currentTarget.style.backgroundColor = 'rgba(0, 143, 79, 0.08)';
             }}
-            data-cursor="Call"
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-            <span>{content.contact.phoneDisplay}</span>
+            +91 78784 44414
           </a>
 
-          <a
-            href={content.hero.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-            style={{ padding: '0.65rem 1.5rem', fontSize: '0.92rem' }}
-            data-cursor="Quote"
+          {/* Primary Action Button */}
+          <Link
+            to="/contact"
+            style={{
+              padding: '0.55rem 1.35rem',
+              borderRadius: '999px',
+              backgroundColor: '#008F4F',
+              color: '#FFFFFF',
+              textDecoration: 'none',
+              fontSize: '0.86rem',
+              fontWeight: 700,
+              boxShadow: '0 4px 16px rgba(0, 143, 79, 0.28)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.2s ease',
+              lineHeight: 1,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#00753F';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#008F4F';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
           >
-            <span>Get Quote</span>
-          </a>
+            Get Quote
+          </Link>
 
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden"
-            aria-label="Toggle Navigation"
+            className="xl:hidden"
             style={{
-              padding: '0.6rem',
-              background: mobileMenuOpen ? 'rgba(0, 143, 79, 0.12)' : 'rgba(255, 255, 255, 0.85)',
-              border: '1px solid rgba(0, 143, 79, 0.18)',
-              borderRadius: '12px',
+              background: 'transparent',
+              border: '1px solid rgba(0, 143, 79, 0.25)',
+              borderRadius: '8px',
+              padding: '0.5rem 0.75rem',
+              color: '#008F4F',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transition: 'all 0.25s ease',
+              fontSize: '0.88rem',
+              fontWeight: 700,
             }}
+            aria-label="Toggle navigation menu"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              {mobileMenuOpen ? (
-                <>
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </>
-              ) : (
-                <>
-                  <line x1="3" y1="12" x2="21" y2="12"></line>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <line x1="3" y1="18" x2="21" y2="18"></line>
-                </>
-              )}
-            </svg>
+            {mobileMenuOpen ? 'Close' : 'Menu'}
           </button>
         </div>
       </div>
 
-      {/* Animated Smooth Mobile Drawer */}
-      <div
-        style={{
-          maxHeight: mobileMenuOpen ? '480px' : '0px',
-          opacity: mobileMenuOpen ? 1 : 0,
-          overflow: 'hidden',
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          borderTop: mobileMenuOpen ? '1px solid rgba(0, 143, 79, 0.1)' : 'none',
-          backgroundColor: 'rgba(246, 252, 248, 0.98)',
-          backdropFilter: 'blur(20px)',
-        }}
-        className="lg:hidden"
-      >
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
         <div
           style={{
-            padding: '1.5rem 6vw 2rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.6rem',
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            backdropFilter: 'blur(20px)',
+            borderTop: '1px solid #E2E8F0',
+            padding: '1.25rem 5vw 2rem',
+            maxHeight: 'calc(100vh - 82px)',
+            overflowY: 'auto',
           }}
+          className="xl:hidden"
         >
-          {navLinks.map((link, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleLinkClick(link.href)}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+            <Link
+              to="/"
               style={{
-                textAlign: 'left',
-                background: 'none',
-                border: 'none',
-                fontSize: '1.05rem',
-                fontWeight: 650,
-                color: '#0F172A',
                 padding: '0.75rem 1rem',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                transition: 'background-color 0.2s, color 0.2s, transform 0.2s',
-                transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(-15px)',
-                transitionDelay: `${idx * 0.03}s`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(0, 143, 79, 0.08)';
-                e.currentTarget.style.color = '#008F4F';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#0F172A';
-              }}
-            >
-              <span>{link.label}</span>
-              <span style={{ color: '#008F4F', fontSize: '0.9rem' }}>→</span>
-            </button>
-          ))}
-
-          {/* Quick Call Button inside Mobile Menu */}
-          <div style={{ marginTop: '0.8rem', paddingTop: '1rem', borderTop: '1px solid #E2E8F0' }}>
-            <a
-              href={`tel:${content.contact.phone}`}
-              className="btn-primary"
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.6rem',
+                borderRadius: '8px',
+                color: '#0F172A',
                 textDecoration: 'none',
-                padding: '0.85rem',
-                fontSize: '0.95rem',
+                fontWeight: 650,
+                fontSize: '0.98rem',
+                backgroundColor: location.pathname === '/' ? '#F0FAF4' : 'transparent',
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-              <span>Call Hotline: {content.contact.phoneDisplay}</span>
-            </a>
+              Home
+            </Link>
+
+            
+
+            {/* Mobile Products Accordion */}
+            <div>
+              <button
+                onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#0F172A',
+                  fontWeight: 650,
+                  fontSize: '0.98rem',
+                  cursor: 'pointer',
+                }}
+              >
+                <span>Products</span>
+                <span style={{ fontSize: '0.7rem' }}>{mobileProductsOpen ? '▲' : '▼'}</span>
+              </button>
+              {mobileProductsOpen && (
+                <div style={{ paddingLeft: '1rem', display: 'flex', flexDirection: 'column', gap: '0.2rem', marginTop: '0.2rem' }}>
+                  {productsList.map((p, idx) => (
+                    <Link
+                      key={idx}
+                      to={p.path}
+                      style={{
+                        padding: '0.55rem 0.8rem',
+                        borderRadius: '6px',
+                        color: '#475569',
+                        textDecoration: 'none',
+                        fontSize: '0.88rem',
+                      }}
+                    >
+                      {p.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              to="/services"
+              style={{
+                padding: '0.75rem 1rem',
+                borderRadius: '8px',
+                color: '#0F172A',
+                textDecoration: 'none',
+                fontWeight: 650,
+                fontSize: '0.98rem',
+                backgroundColor: location.pathname === '/services' ? '#F0FAF4' : 'transparent',
+              }}
+            >
+              Services
+            </Link>
+
+            {/* Mobile Projects Accordion */}
+            <div>
+              <button
+                onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#0F172A',
+                  fontWeight: 650,
+                  fontSize: '0.98rem',
+                  cursor: 'pointer',
+                }}
+              >
+                <span>Projects</span>
+                <span style={{ fontSize: '0.7rem' }}>{mobileProjectsOpen ? '▲' : '▼'}</span>
+              </button>
+              {mobileProjectsOpen && (
+                <div style={{ paddingLeft: '1rem', display: 'flex', flexDirection: 'column', gap: '0.2rem', marginTop: '0.2rem' }}>
+                  {projectsList.map((p, idx) => (
+                    <Link
+                      key={idx}
+                      to={p.path}
+                      style={{
+                        padding: '0.55rem 0.8rem',
+                        borderRadius: '6px',
+                        color: '#475569',
+                        textDecoration: 'none',
+                        fontSize: '0.88rem',
+                      }}
+                    >
+                      {p.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              to="/about"
+              style={{
+                padding: '0.75rem 1rem',
+                borderRadius: '8px',
+                color: '#0F172A',
+                textDecoration: 'none',
+                fontWeight: 650,
+                fontSize: '0.98rem',
+                backgroundColor: location.pathname === '/about' ? '#F0FAF4' : 'transparent',
+              }}
+            >
+              About Us
+            </Link>
+
+            
+
+            <Link
+              to="/catalogue"
+              style={{
+                padding: '0.75rem 1rem',
+                borderRadius: '8px',
+                color: '#0F172A',
+                textDecoration: 'none',
+                fontWeight: 650,
+                fontSize: '0.98rem',
+                backgroundColor: location.pathname === '/catalogue' ? '#F0FAF4' : 'transparent',
+              }}
+            >
+              Catalogue
+            </Link>
+
+            <Link
+              to="/contact"
+              style={{
+                padding: '0.75rem 1rem',
+                borderRadius: '8px',
+                color: '#0F172A',
+                textDecoration: 'none',
+                fontWeight: 650,
+                fontSize: '0.98rem',
+                backgroundColor: location.pathname === '/contact' ? '#F0FAF4' : 'transparent',
+              }}
+            >
+              Contact Us
+            </Link>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };

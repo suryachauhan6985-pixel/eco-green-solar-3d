@@ -8,7 +8,7 @@ export const HeroSection: React.FC = () => {
   // High-resolution vivid architectural solar scenes
   const slides = [
     {
-      image: '/media/images/solar-panels-roof-hero.jpg',
+      image: '/media/images/hero-solar-architecture.jpg',
       caption: 'High-Efficiency Monocrystalline N-Type TOPCon Rooftop System',
       tag: 'Peak Generation • 22.8% Yield',
     },
@@ -264,13 +264,13 @@ export const HeroSection: React.FC = () => {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.88rem', color: '#0F172A', fontWeight: 650 }}>
-              <span style={{ color: 'var(--brand-green)', fontSize: '1.05rem' }}>✓</span> 19+ Years Legacy
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: "2px" }}><polyline points="20 6 9 17 4 12"/></svg> 19+ Years Legacy
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.88rem', color: '#0F172A', fontWeight: 650 }}>
-              <span style={{ color: 'var(--brand-green)', fontSize: '1.05rem' }}>✓</span> 40+ MW Installed
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: "2px" }}><polyline points="20 6 9 17 4 12"/></svg> 40+ MW Installed
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.88rem', color: '#0F172A', fontWeight: 650 }}>
-              <span style={{ color: 'var(--brand-green)', fontSize: '1.05rem' }}>✓</span> 24-Hr Service Turnaround
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: "2px" }}><polyline points="20 6 9 17 4 12"/></svg> 24-Hr Service Turnaround
             </div>
           </div>
         </div>

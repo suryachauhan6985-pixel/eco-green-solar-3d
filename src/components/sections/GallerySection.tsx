@@ -120,7 +120,7 @@ const ProjectParallaxCard: React.FC<ProjectCardProps> = ({ proj, idx, onClick })
           {proj.title}
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.84rem', color: 'var(--text-muted)' }}>
-          <span>📍</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
           {proj.location}
         </div>
       </div>
@@ -239,11 +239,11 @@ export const GallerySection: React.FC = () => {
                       color: 'var(--text-secondary)',
                     }}
                   >
-                    ✕
+                    &times;
                   </button>
                 </div>
                 <div style={{ fontSize: '0.92rem', color: 'var(--text-muted)', marginBottom: '1.2rem' }}>
-                  📍 {selectedProject.location} • {selectedProject.category}
+                  {selectedProject.location} • {selectedProject.category}
                 </div>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', lineHeight: 1.6, marginBottom: '1.8rem' }}>
                   Commissioned engineering project by Eco Green Solar. Demonstrating maximum solar thermal efficiency, robust GIDC Metoda mounting, and zero-defect lifetime performance.

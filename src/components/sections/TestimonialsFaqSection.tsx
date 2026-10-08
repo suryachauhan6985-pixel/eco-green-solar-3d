@@ -55,7 +55,7 @@ export const TestimonialsFaqSection: React.FC = () => {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.4rem' }}>
                     <div style={{ color: '#EAB308', fontSize: '1.1rem', letterSpacing: '0.1em' }}>
-                      ★★★★★
+                      5/5 Trust Rating
                     </div>
                     <span
                       style={{

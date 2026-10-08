@@ -81,20 +81,41 @@ p {
 
 @media (min-width: 768px) {
   .site-section {
-    padding: 6rem 5vw;
+    padding: 5.5rem 4vw;
   }
 }
 
 @media (min-width: 1024px) {
   .site-section {
-    padding: 7rem 7vw;
+    padding: 6rem clamp(1.5rem, 3.8vw, 4rem);
   }
+}
+
+/* Fluid Ultra-Wide PC Monitor Container Auto-Expansion */
+.site-section > div:first-child,
+.site-container,
+div[style*="max-width: 1360px"],
+div[style*="maxWidth: 1360px"],
+div[style*="maxWidth: '1360px'"],
+div[style*="max-width: 1440px"],
+div[style*="maxWidth: 1440px"],
+div[style*="maxWidth: '1440px'"] {
+  max-width: var(--container-max-width, 1360px) !important;
 }
 
 /* Essential Responsive Utilities */
 .hidden { display: none !important; }
 .block { display: block !important; }
 .flex { display: flex !important; }
+.flex-col { flex-direction: column !important; }
+.flex-row { flex-direction: row !important; }
+.flex-grow { flex-grow: 1 !important; }
+.flex-1 { flex: 1 1 0% !important; }
+.w-full { width: 100% !important; }
+.min-h-screen { min-height: 100vh !important; }
+.justify-between { justify-content: space-between !important; }
+.items-center { align-items: center !important; }
+.relative { position: relative !important; }
 
 @media (min-width: 640px) {
   .sm\:hidden { display: none !important; }
@@ -133,21 +154,21 @@ p {
 
 /* Navbar Responsive Sizing */
 .navbar-brand-logo {
-  height: 38px;
-  max-height: 38px;
+  height: 46px;
+  max-height: 46px;
 }
 
 @media (min-width: 640px) {
   .navbar-brand-logo {
-    height: 48px;
-    max-height: 48px;
+    height: 56px;
+    max-height: 56px;
   }
 }
 
 @media (min-width: 1024px) {
   .navbar-brand-logo {
-    height: 56px;
-    max-height: 56px;
+    height: 66px;
+    max-height: 66px;
   }
 }
 
@@ -161,6 +182,12 @@ p {
   .hero-responsive-section {
     padding: 5.6rem 5vw 1.5rem;
     height: 100vh;
+  }
+}
+
+@media (min-width: 1400px) {
+  .hero-responsive-section {
+    padding: 5.6rem clamp(2rem, 3.8vw, 4rem) 1.5rem;
   }
 }
 
@@ -337,7 +364,7 @@ p {
 
 /* Sunk state: Continuous, organic width reduction into a perfect 52px circle */
 .floating-whatsapp.sunk {
-  transform: translateY(12px) translateZ(0);
+  transform: translateY(0) translateZ(0);
   width: 52px;
   max-width: 52px;
   padding: 0;
@@ -352,13 +379,24 @@ p {
 }
 
 .floating-whatsapp:hover {
-  transform: translateY(-2px) translateZ(0);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+  transform: translateY(0) translateZ(0);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.5);
 }
 
+/* When hovered in sunk state, expand back smoothly to full pill button like in Hero with ZERO vertical movement */
 .floating-whatsapp.sunk:hover {
-  transform: translateY(8px) translateZ(0);
-  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.55);
+  transform: translateY(0) translateZ(0);
+  width: 238px;
+  max-width: 238px;
+  padding: 0 1.25rem;
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.55);
+}
+
+.floating-whatsapp.sunk:hover .btn-text {
+  max-width: 190px;
+  opacity: 1;
+  margin-left: 0.6rem;
+  pointer-events: auto;
 }
 
 /* Responsive Mobile Optimizations (< 768px & < 480px) */
@@ -385,7 +423,7 @@ p {
     width: 48px;
     max-width: 48px;
     height: 48px;
-    transform: translateY(10px) translateZ(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
@@ -411,7 +449,7 @@ p {
     width: 46px;
     max-width: 46px;
     height: 46px;
-    transform: translateY(8px) translateZ(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 

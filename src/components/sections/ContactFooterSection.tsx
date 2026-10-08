@@ -34,7 +34,7 @@ export const ContactFooterSection: React.FC = () => {
   };
 
   return (
-    <footer id="contact" className="site-section site-section-subtle" style={{ paddingBottom: '3rem' }}>
+    <section id="contact" className="site-section site-section-subtle" style={{ paddingBottom: '3rem' }}>
       <div style={{ maxWidth: '1360px', margin: '0 auto', width: '100%' }}>
         {/* Contact Hero Container */}
         <div
@@ -349,7 +349,7 @@ export const ContactFooterSection: React.FC = () => {
                   </form>
                 ) : (
                   <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '0.8rem' }}>🎉</div>
+                    <div style={{ marginBottom: "0.8rem" }}><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto" }}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                     <h3 style={{ fontSize: '1.5rem', color: 'var(--brand-green)', marginBottom: '0.6rem' }}>
                       Survey Request Submitted!
                     </h3>
@@ -492,9 +492,7 @@ export const ContactFooterSection: React.FC = () => {
                         fontSize: '0.75rem',
                         fontWeight: 800,
                       }}
-                    >
-                      📍
-                    </div>
+                    ><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#008F4F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: "2px" }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> </div>
                   </div>
 
                   <div
@@ -548,284 +546,8 @@ export const ContactFooterSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Minimal Luxury Footer Brand, Social Media Icons & Back to Top */}
-        <div
-          style={{
-            borderTop: '1px solid var(--border-light)',
-            paddingTop: '3rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '2.5rem',
-          }}
-        >
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <img
-                src="/assets/logo.png"
-                alt="Eco Green Solar"
-                style={{
-                  height: '56px',
-                  width: 'auto',
-                  maxHeight: '56px',
-                  objectFit: 'contain',
-                  display: 'block',
-                  filter: 'drop-shadow(0 2px 10px rgba(0, 143, 79, 0.15))',
-                }}
-              />
-            </div>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '0.6rem', maxWidth: '480px' }}>
-              {content.footer.disclaimer}
-            </p>
-          </div>
-
-          {/* Social Media Links & Back to Top Container */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '1.2rem' }}>
-            {/* Social Media Channels */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginRight: '0.3rem' }}>
-                Follow Us:
-              </span>
-              
-              {/* WhatsApp */}
-              <a
-                href={content.hero.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="WhatsApp Channel"
-                aria-label="Eco Green Solar on WhatsApp"
-                style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '50%',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid var(--border-light)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--text-secondary)',
-                  transition: 'all 0.3s ease',
-                  textDecoration: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#25D366';
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.borderColor = '#25D366';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(37, 211, 102, 0.35)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                  e.currentTarget.style.borderColor = 'var(--border-light)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                </svg>
-              </a>
-
-              {/* Instagram */}
-              <a
-                href={content.footer.socialLinks?.[2]?.url || "https://www.instagram.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Instagram Profile"
-                aria-label="Eco Green Solar on Instagram"
-                style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '50%',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid var(--border-light)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--text-secondary)',
-                  transition: 'all 0.3s ease',
-                  textDecoration: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#E1306C';
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.borderColor = '#E1306C';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(225, 48, 108, 0.35)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                  e.currentTarget.style.borderColor = 'var(--border-light)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-              </a>
-
-              {/* Facebook */}
-              <a
-                href={content.footer.socialLinks?.[1]?.url || "https://www.facebook.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Facebook Page"
-                aria-label="Eco Green Solar on Facebook"
-                style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '50%',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid var(--border-light)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--text-secondary)',
-                  transition: 'all 0.3s ease',
-                  textDecoration: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#1877F2';
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.borderColor = '#1877F2';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(24, 119, 242, 0.35)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                  e.currentTarget.style.borderColor = 'var(--border-light)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </a>
-
-              {/* LinkedIn */}
-              <a
-                href={content.footer.socialLinks?.[3]?.url || "https://www.linkedin.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="LinkedIn Profile"
-                aria-label="Eco Green Solar on LinkedIn"
-                style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '50%',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid var(--border-light)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--text-secondary)',
-                  transition: 'all 0.3s ease',
-                  textDecoration: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#0A66C2';
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.borderColor = '#0A66C2';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(10, 102, 194, 0.35)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                  e.currentTarget.style.borderColor = 'var(--border-light)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-                }}
-              >
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </a>
-
-              {/* YouTube */}
-              <a
-                href={content.footer.socialLinks?.[4]?.url || "https://www.youtube.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="YouTube Channel"
-                aria-label="Eco Green Solar on YouTube"
-                style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '50%',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid var(--border-light)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--text-secondary)',
-                  transition: 'all 0.3s ease',
-                  textDecoration: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FF0000';
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.borderColor = '#FF0000';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(255, 0, 0, 0.35)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                  e.currentTarget.style.borderColor = 'var(--border-light)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-                }}
-              >
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-              </a>
-            </div>
-
-            {/* Back to Top */}
-            <button
-              onClick={scrollToTop}
-              className="btn-secondary"
-              style={{ padding: '0.65rem 1.3rem', fontSize: '0.86rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-              data-cursor="Top"
-            >
-              <span>Back to Top</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="19" x2="12" y2="5"></line>
-                <polyline points="5 12 12 5 19 12"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div
-          style={{
-            marginTop: '2.5rem',
-            textAlign: 'center',
-            fontSize: '0.78rem',
-            color: 'var(--text-muted)',
-            borderTop: '1px solid var(--border-light)',
-            paddingTop: '1.5rem',
-          }}
-        >
-          {content.footer.copyright} • {content.footer.rajkotCoordinates}
-        </div>
-      </div>
-    </footer>
+              </div>
+    </section>
   );
 };
 

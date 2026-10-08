@@ -51,6 +51,27 @@
   /* Easing */
   --transition-fast: 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Fluid Container Maximum Widths (Perfect for Laptop & Ultra-Wide Big PC Displays) */
+  --container-max-width: 1360px;
+}
+
+@media (min-width: 1400px) {
+  :root {
+    --container-max-width: 1560px;
+  }
+}
+
+@media (min-width: 1680px) {
+  :root {
+    --container-max-width: 1680px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-max-width: 1740px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -59,3 +80,4 @@
     --text-title: clamp(1.3rem, 4.2vw, 1.65rem);
   }
 }
+

@@ -44,18 +44,22 @@ export const TextReveal: React.FC<TextRevealProps> = ({
       if (animatedRef.current) return;
       animatedRef.current = true;
 
-      gsap.to(words, {
-        y: '0%',
-        opacity: 1,
-        duration: 0.75,
-        ease: 'power3.out',
-        stagger,
-        delay,
-        overwrite: 'auto',
-        onComplete: () => {
-          gsap.set(words, { clearProps: 'transform,willChange' });
-        },
-      });
+      gsap.fromTo(
+        words,
+        { y: '100%', opacity: 0 },
+        {
+          y: '0%',
+          opacity: 1,
+          duration: 0.75,
+          ease: 'power3.out',
+          stagger,
+          delay,
+          overwrite: 'auto',
+          onComplete: () => {
+            gsap.set(words, { clearProps: 'transform,willChange' });
+          },
+        }
+      );
     };
 
     if (!triggerOnScroll) {
@@ -63,25 +67,28 @@ export const TextReveal: React.FC<TextRevealProps> = ({
       return;
     }
 
-    // Native IntersectionObserver: 100% reliable across all devices and layout shifts
+    // Bidirectional Observer: animates in on scroll down AND on reverse scroll up
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             animateIn();
-            observer.disconnect();
+          } else {
+            // When exiting the viewport, reset state so reverse scroll re-triggers fly-in
+            animatedRef.current = false;
+            gsap.set(words, { y: '100%', opacity: 0 });
           }
         });
       },
       {
-        threshold: 0.05,
-        rootMargin: '0px 0px -20px 0px',
+        threshold: 0.08,
+        rootMargin: '0px 0px -30px 0px',
       }
     );
 
     observer.observe(el);
 
-    // Safety fallback: ensure text is NEVER stuck if already in view or after scroll
+    // Initial check for elements already in view on mount
     const fallbackTimer = setTimeout(() => {
       if (!animatedRef.current && el) {
         const rect = el.getBoundingClientRect();
@@ -89,7 +96,7 @@ export const TextReveal: React.FC<TextRevealProps> = ({
           animateIn();
         }
       }
-    }, 500);
+    }, 300);
 
     return () => {
       observer.disconnect();

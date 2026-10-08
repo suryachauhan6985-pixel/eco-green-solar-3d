@@ -1,3 +1,10 @@
+import { aboutData } from './data/about';
+import { contactData, footerData } from './data/contact';
+import { productsData } from './data/products';
+import { projectsData, projectCategories, galleryImages } from './data/projects';
+import { cataloguesData } from './data/catalogues';
+
+export { aboutData, contactData, footerData, productsData, projectsData, projectCategories, galleryImages, cataloguesData };
 /**
  * Eco Green Solar — Master Content File
  * Empanelled Vendor under PM Surya Ghar Muft Bijli Yojana
@@ -49,6 +56,7 @@ export const content = {
   },
 
   about: {
+    ...aboutData,
     tag: "OUR HERITAGE // ESTD. 2007",
     headline: "19 years of engineering excellence in Saurashtra.",
     storyP1:
@@ -305,6 +313,7 @@ export const content = {
   },
 
   contact: {
+    ...contactData,
     tag: "GET IN TOUCH",
     headline: "Start your journey to zero electricity bills.",
     subheadline:
@@ -534,7 +543,13 @@ export const content = {
       pdfUrl: "/downloads/EcoGreen-Rooftop-Solar-PV.pdf",
       whatsappMsg: "Hello Eco Green Solar, I would like to inquire about Monocrystalline Rooftop Solar PV"
     }
-  ]
+  ],
+  // Modular page collections
+  productsList: productsData,
+  projectsList: projectsData,
+  projectCategories: projectCategories,
+  cataloguesList: cataloguesData,
+  galleryImages: galleryImages,
 };
 
 export default content;
